@@ -1,0 +1,9 @@
+.heading {
+  font-size: clamp(1rem, 5vw, 1.8rem);
+  letter-spacing: 3px;
+  text-align: center;
+  padding: 2rem 0;
+  font-family: var(--bold-font);
+  max-width: 90%;
+  margin: auto;
+}
