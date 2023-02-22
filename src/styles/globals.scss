@@ -12,7 +12,7 @@
   --brown: #d3c4a7;
   --brown--light: #d3c4a7d2;
   --brown--light-1: #d3c4a767;
-  --grey: ##96979b;
+  --grey: #96979b;
   --grey--light: #96979b6e;
   --green: #859669;
   --graphite: #272d31;
@@ -45,6 +45,12 @@ a {
 }
 .bold {
   font-weight: bold;
+}
+.center-loader {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .section-padding {
   padding: 4rem 0 6rem 0;

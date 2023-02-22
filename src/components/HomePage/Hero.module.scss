@@ -1,5 +1,5 @@
 .hero {
-  background-image: url("/assets/homePage/hero-horizontal.jpg");
+  background-image: url("/assets/HomePage/hero-horizontal.jpg");
   height: 100vh;
   background-size: cover;
 
@@ -7,7 +7,7 @@
   background-position: right;
   position: relative;
   @media (max-width: 800px) {
-    background-image: url("/assets/homePage/hero-vertical.jpeg");
+    background-image: url("/assets/HomePage/hero-vertical.jpeg");
     height: 100vh;
     background-position: center;
   }

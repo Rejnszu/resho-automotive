@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Button.module.scss";
 interface props {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (e: any) => void;
   style?: string;
 }
 const Button = ({ children, onClick, style }: props) => {

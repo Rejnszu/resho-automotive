@@ -1,0 +1,17 @@
+.bank-section {
+  background-color: var(--brown--light-1);
+}
+.logos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+}
