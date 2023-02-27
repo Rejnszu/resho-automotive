@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useAddOfferMutation } from "@/redux/api/offersApiSlice";
 import { useRouter } from "next/router";
 import Spinner from "@/components/UI/Spinner";
+
 const AddOfferForm = () => {
   const router = useRouter();
   const [addNewOffer, { isSuccess, isLoading, isError }] =
@@ -15,6 +16,7 @@ const AddOfferForm = () => {
     images: [],
     description: "",
     model: "",
+    brand: "",
     power: 0,
     mileage: 0,
     year: 0,
@@ -23,20 +25,29 @@ const AddOfferForm = () => {
   });
 
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ): void => {
     setCarOffer({ ...carOffer, [e.target.name]: e.target.value });
   };
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setCarOffer({
-      ...carOffer,
-      images: [
-        ...carOffer.images,
-        ...Array.from(e.target.files).map((file: any) => {
-          return URL.createObjectURL(file);
-        }),
-        ,
-      ],
+    let helperArray = [];
+    Array.from(e.target.files).map((file: any) => {
+      if (file.size > 300000) {
+        alert(`${file.name} is to big to upload.`);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function () {
+        helperArray.push(reader.result);
+
+        setCarOffer({
+          ...carOffer,
+          images: [...carOffer.images, ...helperArray],
+        });
+      };
+      reader.readAsDataURL(file);
     });
   };
 
@@ -49,10 +60,11 @@ const AddOfferForm = () => {
     setTimeout(() => router.push("/admin/dashboard/your-offers"), 1000);
   }
   return (
-    <form className={styles["add-offer__form"]}>
+    <form onSubmit={addOffer} className={styles["add-offer__form"]}>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="title">Offer Title</label>
         <input
+          required
           onChange={onChange}
           value={carOffer.title}
           type="text"
@@ -63,9 +75,9 @@ const AddOfferForm = () => {
       <div className={styles["input__wrapper"]}>
         <label htmlFor="images">Images</label>
         <input
+          required
           onChange={(e) => {
             onChangeImages(e);
-            console.log(Array.from(e.target.files));
           }}
           type="file"
           multiple
@@ -85,6 +97,14 @@ const AddOfferForm = () => {
                 alt={image}
                 width={100}
                 height={100}
+                onClick={() => {
+                  setCarOffer({
+                    ...carOffer,
+                    images: carOffer.images.filter((img) => {
+                      return img !== image;
+                    }),
+                  });
+                }}
               />
             );
           })}
@@ -93,6 +113,7 @@ const AddOfferForm = () => {
       <div className={styles["input__wrapper"]}>
         <label htmlFor="model">Model</label>
         <input
+          required
           onChange={onChange}
           value={carOffer.model}
           type="text"
@@ -101,8 +122,20 @@ const AddOfferForm = () => {
         />
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="power">Power</label>
+        <label htmlFor="model">Brand</label>
         <input
+          required
+          onChange={onChange}
+          value={carOffer.brand}
+          type="text"
+          id="brand"
+          name="brand"
+        />
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="power">Power [KM]</label>
+        <input
+          required
           onChange={onChange}
           value={carOffer.power}
           type="number"
@@ -110,10 +143,10 @@ const AddOfferForm = () => {
           name="power"
         />
       </div>
-
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="number">Mileage</label>
+        <label htmlFor="number">Mileage [km]</label>
         <input
+          required
           onChange={onChange}
           value={carOffer.mileage}
           type="number"
@@ -123,17 +156,55 @@ const AddOfferForm = () => {
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="number">Year of production</label>
-        <input
+
+        <select
+          required
           onChange={onChange}
           value={carOffer.year}
-          type="number"
           id="year"
           name="year"
-        />
+        >
+          <option>year</option>
+          <option value="1990">1990</option>
+          <option value="1991">1991</option>
+          <option value="1992">1992</option>
+          <option value="1993">1993</option>
+          <option value="1994">1994</option>
+          <option value="1995">1995</option>
+          <option value="1996">1996</option>
+          <option value="1997">1997</option>
+          <option value="1998">1998</option>
+          <option value="1999">1999</option>
+          <option value="2000">2000</option>
+          <option value="2001">2001</option>
+          <option value="2002">2002</option>
+          <option value="2003">2003</option>
+          <option value="2004">2004</option>
+          <option value="2005">2005</option>
+          <option value="2006">2006</option>
+          <option value="2007">2007</option>
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="engine">Engine</label>
         <input
+          required
           onChange={onChange}
           value={carOffer.engine}
           type="text"
@@ -142,8 +213,9 @@ const AddOfferForm = () => {
         />
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="price">Price</label>
+        <label htmlFor="price">Price [€]</label>
         <input
+          required
           onChange={onChange}
           value={carOffer.price}
           type="number"
@@ -161,7 +233,7 @@ const AddOfferForm = () => {
           name="description"
         ></textarea>
       </div>
-      <Button style={styles["button--add-offer"]} onClick={addOffer}>
+      <Button type="submit" style={styles["button--add-offer"]}>
         Add Offer
       </Button>
       {isLoading && (

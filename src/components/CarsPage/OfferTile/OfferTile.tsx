@@ -1,47 +1,44 @@
-import { CarOffer } from "@/models/models";
-import Link from "next/link";
 import React from "react";
+import styles from "./OfferTile.module.scss";
+import Link from "next/link";
+import { CarOffer } from "@/models/models";
 import {
   GiRoad,
   GiPriceTag,
   GiCalendar,
   GiPowerLightning,
 } from "react-icons/gi";
-import styles from "./LatestTile.module.scss";
 
-interface Props {
-  offer: CarOffer;
-}
-const LatestTile = ({ offer }: Props) => {
+const OfferTile = ({ ...props }: CarOffer) => {
   return (
-    <Link href={`/buy-a-car/${offer._id}`}>
+    <Link href={`/buy-a-car/${props._id}`}>
       <div
-        className={styles["latest-tile"]}
-        style={{ backgroundImage: `url(${offer.images[0]})` }}
+        className={styles["offer-tile"]}
+        style={{ backgroundImage: `url(${props.images[0]})` }}
       >
-        <p className={styles["tile__title"]}>{offer.model}</p>
+        <p className={styles["tile__title"]}>{props.model}</p>
         <p className={styles["tile__text"]}>
           <GiRoad />
-          {offer.mileage} KM
+          {new Intl.NumberFormat("de-DE").format(props.mileage)} KM
         </p>
         <p className={styles["tile__text"]}>
           <GiPriceTag />
           {new Intl.NumberFormat("de-DE", {
             style: "currency",
             currency: "EUR",
-          }).format(offer.price)}
+          }).format(props.price)}
         </p>
         <p className={styles["tile__text"]}>
           <GiCalendar />
-          {offer.year} year
+          {props.year} year
         </p>
         <p className={styles["tile__text"]}>
           <GiPowerLightning />
-          {offer.power} HP
+          {props.power} HP
         </p>
       </div>
     </Link>
   );
 };
 
-export default LatestTile;
+export default OfferTile;

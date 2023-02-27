@@ -3,8 +3,12 @@ import HeadingH2 from "../Typography/Headings/HeadingH2";
 import styles from "./LatestBanner.module.scss";
 import LatestTile from "./LatestTile";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
-import { DUMMY_CARS_OFFERS } from "@/dummyData/DummyData";
-const LatestBanner = () => {
+
+import { CarOffer } from "@/models/models";
+interface Props {
+  offers: CarOffer[];
+}
+const LatestBanner = ({ offers }: Props) => {
   const bannerRef = useRef<HTMLUListElement>(null);
 
   function scrollRight() {
@@ -40,8 +44,8 @@ const LatestBanner = () => {
           <IoMdArrowDropright />
         </button>
         <ul ref={bannerRef} className={`${styles["latest-banner"]}`}>
-          {DUMMY_CARS_OFFERS.map((offer) => {
-            return <LatestTile key={offer.id} {...offer} />;
+          {offers.map((offer) => {
+            return <LatestTile key={offer._id} offer={offer} />;
           })}
         </ul>
       </div>

@@ -3,6 +3,7 @@ export interface CarOffer {
   images: string[];
   description: string;
   model: string;
+  brand: string;
   power: number;
   mileage: number;
   year: number;

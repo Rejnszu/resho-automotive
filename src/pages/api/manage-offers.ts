@@ -12,14 +12,37 @@ async function handler(req, res) {
     client = await connectDatabase();
   } catch (error) {
     res.status(500).json({ message: "Connecting to database failed!" });
-
     return;
   }
   if (req.method === "POST") {
     const offer = req.body;
-    const { title } = offer;
-    if (title.trim().length === 0) {
-      res.status(422).json({ message: "invalid title." });
+    const {
+      title,
+      images,
+      description,
+      model,
+      power,
+      mileage,
+      year,
+      engine,
+      price,
+    } = offer;
+    if (
+      title.trim().length === 0 ||
+      images.length === 0 ||
+      description.trim().length === 0 ||
+      model.trim().length === 0 ||
+      power === 0 ||
+      power === undefined ||
+      mileage === 0 ||
+      mileage === undefined ||
+      year === 0 ||
+      year === undefined ||
+      engine.trim().length === 0 ||
+      price === 0 ||
+      price === undefined
+    ) {
+      res.status(422).json({ message: "One of fields is empty." });
       return;
     }
 

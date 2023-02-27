@@ -1,0 +1,31 @@
+.info-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 35px;
+  margin: 2rem 0;
+  li {
+    p {
+      &:nth-of-type(1) {
+        font-family: var(--bold-font);
+        font-size: 1.2rem;
+      }
+      &:nth-of-type(2) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+.info__description {
+  width: 100%;
+
+  p {
+    &:nth-of-type(1) {
+      font-family: var(--bold-font);
+      font-size: 1.2rem;
+    }
+    &:nth-of-type(2) {
+      font-size: 1.5rem;
+    }
+  }
+}

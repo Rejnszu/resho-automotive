@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./Banner.module.scss";
 import Text from "../Typography/Text";
 import Image from "next/image";
-import Link from "next/link";
-import { AiOutlinePhone, AiOutlineArrowRight } from "react-icons/ai";
+
 import HeadingH2 from "../Typography/Headings/HeadingH2";
 import { useRouter } from "next/router";
 const Banner = () => {
@@ -25,7 +24,7 @@ const Banner = () => {
           />
         </div>
         <div
-          onClick={() => router.push("/finances")}
+          onClick={() => router.push("/finance-your-car")}
           className={styles["banner__tile"]}
         >
           <Text>Decide how you want to finance it.</Text>

@@ -27,7 +27,7 @@ module.exports = (phase) => {
       mongodb_username: "michal",
       mongodb_password: "AC1IInmb8F18jLTq",
       mongodb_clustername: "cluster0",
-      mongodb_database: "shop-production",
+      mongodb_database: "shop-dev",
     },
   };
 };

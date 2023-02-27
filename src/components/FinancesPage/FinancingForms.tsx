@@ -14,7 +14,7 @@ const FinancingForms = () => {
           <p className={styles["card__text"]}>You have money? We have cars.</p>
           <Image
             src="/assets/Finances/money.png"
-            alt="loan"
+            alt="cash"
             width={80}
             height={80}
           ></Image>
@@ -42,7 +42,7 @@ const FinancingForms = () => {
             </p>{" "}
             <Image
               src="/assets/Finances/leasing.png"
-              alt="loan"
+              alt="leasing"
               width={80}
               height={80}
             ></Image>
@@ -55,7 +55,7 @@ const FinancingForms = () => {
           </p>{" "}
           <Image
             src="/assets/Finances/rent.png"
-            alt="loan"
+            alt="rent"
             width={80}
             height={80}
           ></Image>
