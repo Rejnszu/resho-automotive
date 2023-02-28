@@ -4,10 +4,15 @@ export interface CarOffer {
   description: string;
   model: string;
   brand: string;
-  power: number;
+
   mileage: number;
   year: number;
+
   engine: string;
+  power: number;
+  engineCapacity: number;
+  fuel: string;
+  color: string;
   price: number;
   _id?: string;
 }

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useDeleteOfferMutation } from "@/redux/api/offersApiSlice";
 import Warning from "@/components/Typography/Warning";
 import { AiOutlineClose } from "react-icons/ai";
-import Image from "next/image";
+import Link from "next/link";
 interface Props {
   offer: CarOffer;
 }
@@ -33,22 +33,13 @@ const Offer = ({ offer }: Props) => {
         }).format(offer.price)}
       </p>
       <p>Year: {offer.year}</p>
-      <div>
-        {offer.images.map((image) => {
-          if (image === undefined) {
-            return;
-          }
-          return (
-            <Image
-              key={image}
-              src={`${image}`}
-              alt={image}
-              width={100}
-              height={100}
-            />
-          );
-        })}
-      </div>
+      <Link
+        href={`/buy-a-car/${offer._id}`}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Check Live
+      </Link>
       <button
         className={styles["button--add-offer"]}
         onClick={deleteOffer.bind(null, offer._id)}

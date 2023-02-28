@@ -21,6 +21,9 @@ const AddOfferForm = () => {
     mileage: 0,
     year: 0,
     engine: "",
+    fuel: "",
+    engineCapacity: 0,
+    color: "",
     price: 0,
   });
 
@@ -122,7 +125,7 @@ const AddOfferForm = () => {
         />
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="model">Brand</label>
+        <label htmlFor="brand">Brand</label>
         <input
           required
           onChange={onChange}
@@ -132,17 +135,7 @@ const AddOfferForm = () => {
           name="brand"
         />
       </div>
-      <div className={styles["input__wrapper"]}>
-        <label htmlFor="power">Power [KM]</label>
-        <input
-          required
-          onChange={onChange}
-          value={carOffer.power}
-          type="number"
-          id="power"
-          name="power"
-        />
-      </div>
+
       <div className={styles["input__wrapper"]}>
         <label htmlFor="number">Mileage [km]</label>
         <input
@@ -210,6 +203,39 @@ const AddOfferForm = () => {
           type="text"
           id="engine"
           name="engine"
+        />
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="power">Power [KM]</label>
+        <input
+          required
+          onChange={onChange}
+          value={carOffer.power}
+          type="number"
+          id="power"
+          name="power"
+        />
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="engineCapacity">Engine Capacity</label>
+        <input
+          required
+          onChange={onChange}
+          value={carOffer.engineCapacity}
+          type="text"
+          id="engineCapacity"
+          name="engineCapacity"
+        />
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="fuel">Fuel</label>
+        <input
+          required
+          onChange={onChange}
+          value={carOffer.fuel}
+          type="text"
+          id="fuel"
+          name="fuel"
         />
       </div>
       <div className={styles["input__wrapper"]}>

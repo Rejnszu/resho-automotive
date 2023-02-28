@@ -8,6 +8,9 @@
     font-weight: bold;
     width: 150px;
   }
+  a {
+    font-family: var(--bold-font);
+  }
 }
 .button--add-offer {
   background-color: black;

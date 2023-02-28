@@ -1,6 +1,7 @@
 .add-offer__form {
   max-width: 95%;
   margin: auto;
+  padding-bottom: 4rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr) minmax(0, 300px);
   grid-template-rows: 80px repeat(6, 80px);
@@ -48,8 +49,8 @@
     grid-row: 2 / span 4;
     grid-column: 1 / span 2;
   }
-  &:nth-of-type(10) {
-    grid-row: 6 / span 3;
+  &:nth-of-type(12) {
+    grid-row: 6 / span 5;
     grid-column: 1 / span 2;
   }
 }

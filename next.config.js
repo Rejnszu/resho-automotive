@@ -11,7 +11,7 @@ module.exports = (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       env: {
-        admin_username: "lukas",
+        admin_username: "admin",
         admin_password: "12345",
         mongodb_username: "michal",
         mongodb_password: "AC1IInmb8F18jLTq",
@@ -22,7 +22,7 @@ module.exports = (phase) => {
   }
   return {
     env: {
-      admin_username: "lukas",
+      admin_username: "admin",
       admin_password: "12345",
       mongodb_username: "michal",
       mongodb_password: "AC1IInmb8F18jLTq",

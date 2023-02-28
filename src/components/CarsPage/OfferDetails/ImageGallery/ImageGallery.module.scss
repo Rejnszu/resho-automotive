@@ -5,6 +5,7 @@
   padding: 1rem 0;
   box-shadow: var(--image-shadow);
   background-color: var(--brown--light-1);
+  border-radius: var(--border-radius);
   @media (max-width: 600px) {
     padding: 0;
   }
@@ -15,8 +16,9 @@
   background-size: contain;
   width: auto;
   position: relative;
-  height: 400px;
+  height: clamp(150px, 45vw, 400px);
   margin: 0 2.5rem;
+
   svg {
     cursor: pointer;
     fill: white;
@@ -44,6 +46,9 @@
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 500px) {
+    display: none;
+  }
 }
 .thumbnail-img {
   cursor: pointer;
@@ -55,8 +60,5 @@
   @media (max-width: 750px) {
     width: 100px;
     height: 75px;
-  }
-  @media (max-width: 500px) {
-    display: none;
   }
 }

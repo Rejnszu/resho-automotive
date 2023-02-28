@@ -4,6 +4,7 @@ import React from "react";
 interface Props {
   currentOffer: CarOffer;
 }
+
 const InfoList = ({ currentOffer }: Props) => {
   return (
     <section>
@@ -22,7 +23,15 @@ const InfoList = ({ currentOffer }: Props) => {
         </li>
         <li>
           <p>Power:</p>
-          <p>{currentOffer.power}</p>
+          <p>{currentOffer.power} KM</p>
+        </li>
+        <li>
+          <p>Engine Capacity:</p>
+          <p>{currentOffer.engineCapacity} cm^3</p>
+        </li>
+        <li>
+          <p>Fuel:</p>
+          <p>{currentOffer.fuel}</p>
         </li>
         <li>
           <p>Year of production</p>
@@ -30,11 +39,22 @@ const InfoList = ({ currentOffer }: Props) => {
         </li>
         <li>
           <p>Mileage:</p>
-          <p>{currentOffer.mileage}</p>
+          <p>
+            {new Intl.NumberFormat("de-DE").format(currentOffer.mileage)} km
+          </p>
         </li>
         <li>
           <p>Price:</p>
-          <p>{currentOffer.price}</p>
+          <p>
+            {new Intl.NumberFormat("de-DE", {
+              style: "currency",
+              currency: "EUR",
+            }).format(currentOffer.price)}
+          </p>
+        </li>
+        <li>
+          <p>Power:</p>
+          <p>{currentOffer.color}</p>
         </li>
       </ul>
       <div className={styles["info__description"]}>

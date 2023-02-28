@@ -29,20 +29,24 @@ const LatestBanner = ({ offers }: Props) => {
     <section className={`${styles["latest-section"]} section-padding`}>
       <HeadingH2>Latest Additions</HeadingH2>
       <div className={`${styles["banner__overlay"]} container`}>
-        <button
-          type="button"
-          onClick={scrollLeft}
-          className={`${styles["scroll-button"]} ${styles["scroll-button--left"]}`}
-        >
-          <IoMdArrowDropleft />
-        </button>
-        <button
-          type="button"
-          onClick={scrollRight}
-          className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}
-        >
-          <IoMdArrowDropright />
-        </button>
+        {offers.length >= 5 && (
+          <React.Fragment>
+            <button
+              type="button"
+              onClick={scrollLeft}
+              className={`${styles["scroll-button"]} ${styles["scroll-button--left"]}`}
+            >
+              <IoMdArrowDropleft />
+            </button>
+            <button
+              type="button"
+              onClick={scrollRight}
+              className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}
+            >
+              <IoMdArrowDropright />
+            </button>
+          </React.Fragment>
+        )}
         <ul ref={bannerRef} className={`${styles["latest-banner"]}`}>
           {offers.map((offer) => {
             return <LatestTile key={offer._id} offer={offer} />;
