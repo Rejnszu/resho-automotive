@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./MainNavigation.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import useMobile from "@/hooks/useMobile";
+import { GrUserAdmin } from "react-icons/gr";
 import Burger from "./Burger";
 const MainNavigation = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
@@ -51,6 +51,10 @@ const MainNavigation = () => {
             <Link href="/contact">Contact</Link>
           </li>
         </ul>
+
+        <Link className={styles["log-in"]} href="/admin">
+          <GrUserAdmin />
+        </Link>
       </nav>
 
       <Burger
@@ -84,6 +88,11 @@ const MainNavigation = () => {
           </li>
           <li>
             <Link href="/contact">Contact</Link>
+          </li>
+          <li>
+            <Link href="/admin">
+              <GrUserAdmin />
+            </Link>
           </li>
         </ul>
       </nav>

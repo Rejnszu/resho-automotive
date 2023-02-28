@@ -3,6 +3,7 @@ import styles from "./DashboardNavigation.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Button from "@/components/UI/Button";
+import { BsBoxArrowRight } from "react-icons/bs";
 const DashboardNavigation = () => {
   const router = useRouter();
   return (
@@ -25,7 +26,7 @@ const DashboardNavigation = () => {
             router.replace("/admin");
           }}
         >
-          Logout
+          <p>Logout</p> <BsBoxArrowRight />
         </Button>
       </div>
     </>
