@@ -15,4 +15,12 @@ export interface CarOffer {
   color: string;
   price: number;
   _id?: string;
+  email?: string;
+}
+
+export interface User {
+  email: string;
+  password: string;
+  phone: number;
+  offers: CarOffer[];
 }

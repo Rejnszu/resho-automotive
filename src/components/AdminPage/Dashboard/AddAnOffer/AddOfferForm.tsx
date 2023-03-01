@@ -6,8 +6,11 @@ import Image from "next/image";
 import { useAddOfferMutation } from "@/redux/api/offersApiSlice";
 import { useRouter } from "next/router";
 import Spinner from "@/components/UI/Spinner";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const AddOfferForm = () => {
+  const email = useSelector((state: RootState) => state.user.userEmail);
   const router = useRouter();
   const [addNewOffer, { isSuccess, isLoading, isError }] =
     useAddOfferMutation();
@@ -25,6 +28,7 @@ const AddOfferForm = () => {
     engineCapacity: 0,
     color: "",
     price: 0,
+    email: email,
   });
 
   const onChange = (
@@ -114,17 +118,6 @@ const AddOfferForm = () => {
         </div>
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="model">Model</label>
-        <input
-          required
-          onChange={onChange}
-          value={carOffer.model}
-          type="text"
-          id="model"
-          name="model"
-        />
-      </div>
-      <div className={styles["input__wrapper"]}>
         <label htmlFor="brand">Brand</label>
         <input
           required
@@ -133,6 +126,17 @@ const AddOfferForm = () => {
           type="text"
           id="brand"
           name="brand"
+        />
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="model">Model</label>
+        <input
+          required
+          onChange={onChange}
+          value={carOffer.model}
+          type="text"
+          id="model"
+          name="model"
         />
       </div>
 
@@ -217,7 +221,7 @@ const AddOfferForm = () => {
         />
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="engineCapacity">Engine Capacity</label>
+        <label htmlFor="engineCapacity">Engine Capacity [cm³]</label>
         <input
           required
           onChange={onChange}

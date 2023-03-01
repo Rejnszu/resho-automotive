@@ -3,12 +3,16 @@ import ContactWidget from "../ContactWidget/ContactWidget";
 import Footer from "../Footer/Footer";
 import MainNavigation from "../Navigation/MainNavigation";
 import { useRouter } from "next/router";
-
-import styles from "./Layout.module.scss";
+import Cookies from "../Cookies/Cookies";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 interface props {
   children: React.ReactNode;
 }
 const Layout = ({ children }: props) => {
+  const showCookiesModal = useSelector(
+    (state: RootState) => state.cookies.showCookiesModal
+  );
   const router = useRouter();
   return (
     <>
@@ -16,6 +20,7 @@ const Layout = ({ children }: props) => {
       {children}
       <Footer />
       {!router.pathname.includes("/admin") && <ContactWidget />}
+      {showCookiesModal && <Cookies />}
     </>
   );
 };

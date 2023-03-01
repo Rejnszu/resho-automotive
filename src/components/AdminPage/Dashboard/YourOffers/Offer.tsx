@@ -6,13 +6,15 @@ import { useDeleteOfferMutation } from "@/redux/api/offersApiSlice";
 import Warning from "@/components/Typography/Warning";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 interface Props {
   offer: CarOffer;
 }
 const Offer = ({ offer }: Props) => {
   const [deleteOffer, { isLoading, isSuccess }] = useDeleteOfferMutation();
   const router = useRouter();
-
+  const email = useSelector((state: RootState) => state.user.userEmail);
   if (isLoading) {
     return <Warning>Deleting offer</Warning>;
   }
@@ -42,7 +44,9 @@ const Offer = ({ offer }: Props) => {
       </Link>
       <button
         className={styles["button--add-offer"]}
-        onClick={deleteOffer.bind(null, offer._id)}
+        onClick={() => {
+          deleteOffer({ email: email, id: offer._id });
+        }}
       >
         <AiOutlineClose />
       </button>

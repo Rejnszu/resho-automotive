@@ -3,12 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const offersApiSlice = createApi({
   reducerPath: "offersApiSlice",
   baseQuery: fetchBaseQuery({
-    baseUrl: `/api/manage-offers`,
+    baseUrl: `/api/manage-offers/`,
   }),
   tagTypes: ["Offers"],
   endpoints: (builder) => ({
     getOffers: builder.query<any, void>({
-      query: () => "",
+      query: (email) => `?email=${email}`,
       providesTags: ["Offers"],
     }),
     addOffer: builder.mutation({
@@ -20,10 +20,10 @@ export const offersApiSlice = createApi({
       invalidatesTags: ["Offers"],
     }),
     deleteOffer: builder.mutation({
-      query: (id) => ({
+      query: (obj) => ({
         url: ``,
         method: "PUT",
-        body: id,
+        body: obj,
       }),
       invalidatesTags: ["Offers"],
     }),

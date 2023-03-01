@@ -5,8 +5,12 @@ import Offer from "./Offer";
 import { useGetOffersQuery } from "@/redux/api/offersApiSlice";
 import Spinner from "@/components/UI/Spinner";
 import Warning from "@/components/Typography/Warning";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const Offers = () => {
-  const { data, isLoading, isError } = useGetOffersQuery();
+  const email = useSelector((state: RootState) => state.user.userEmail);
+  console.log(email);
+  const { data, isLoading, isError } = useGetOffersQuery(email);
   const userOffers: CarOffer[] = data?.offers;
 
   if (isLoading) {

@@ -4,6 +4,9 @@ import {
   insertOffer,
   getAllOffers,
   deleteOffer,
+  insertOfferToUser,
+  deleteUserOffer,
+  getUserOffers,
 } from "@/utils/db-utils";
 
 async function handler(req, res) {
@@ -26,6 +29,7 @@ async function handler(req, res) {
       year,
       engine,
       price,
+      email,
     } = offer;
     if (
       title.trim().length === 0 ||
@@ -48,6 +52,7 @@ async function handler(req, res) {
 
     try {
       await insertOffer(client, "offers", offer);
+      await insertOfferToUser(client, "users", email, offer);
       client.close();
     } catch (error) {
       res.status(500).json({ message: "Inserting data failed!" });
@@ -60,20 +65,22 @@ async function handler(req, res) {
       .json({ message: "Offer was added succesfully!", offer: offer });
   } else if (req.method === "GET") {
     let offers;
-
+    let { email } = req.query;
+    console.log(email);
     try {
-      offers = await getAllOffers(client, "offers");
+      offers = await getUserOffers(client, "users", email);
       res.status(201).json({ message: "Offers Loaded", offers: offers });
     } catch (error) {
       res.status(500).json({ message: error.message });
       return;
     }
   } else if (req.method === "PUT") {
-    const id = req.body;
+    const { email, id } = req.body;
 
     try {
-      deleteOffer(client, "offers", id);
-      res.status(201).json({ message: "Offer Deleted", id: id });
+      await deleteOffer(client, "offers", id);
+      await deleteUserOffer(client, "users", email, id);
+      res.status(201).json({ message: "Offer Deleted" });
     } catch (error) {
       res.status(500).json({ message: error.message });
       return;

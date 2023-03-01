@@ -1,0 +1,45 @@
+.login__wrapper {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  font-weight: bold;
+  input,
+  textarea {
+    border: none;
+    padding: 5px;
+    box-shadow: var(--image-shadow);
+    background-color: var(--brown--light);
+    font-size: 16px;
+    border-radius: 2px;
+    resize: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  label {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  button {
+    margin-top: 2rem;
+  }
+}
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

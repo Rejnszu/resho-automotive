@@ -5,9 +5,11 @@ import LatestBanner from "@/components/HomePage/LatestBanner";
 import AboutCompany from "@/components/HomePage/AboutCompany";
 import { connectDatabase, getAllOffers } from "@/utils/db-utils";
 import { CarOffer } from "@/models/models";
+
 interface Props {
   offers: CarOffer[];
 }
+
 const HomePage = ({ offers }: Props) => {
   return (
     <main>

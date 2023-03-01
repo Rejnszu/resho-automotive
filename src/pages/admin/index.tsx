@@ -1,8 +1,7 @@
-import LoginForm from "@/components/AdminPage/LoginForm";
+import LoginForm from "@/components/AdminPage/LoginForm/LoginForm";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Spinner from "@/components/UI/Spinner";
 const AdminPage = () => {
   const router = useRouter();
   let isLogged =
