@@ -7,7 +7,7 @@ export const offersApiSlice = createApi({
   }),
   tagTypes: ["Offers"],
   endpoints: (builder) => ({
-    getOffers: builder.query<any, void>({
+    getOffers: builder.query<any, string>({
       query: (email) => `?email=${email}`,
       providesTags: ["Offers"],
     }),

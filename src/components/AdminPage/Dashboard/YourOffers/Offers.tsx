@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 const Offers = () => {
   const email = useSelector((state: RootState) => state.user.userEmail);
-  console.log(email);
+
   const { data, isLoading, isError } = useGetOffersQuery(email);
   const userOffers: CarOffer[] = data?.offers;
 

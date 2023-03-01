@@ -66,7 +66,7 @@ async function handler(req, res) {
   } else if (req.method === "GET") {
     let offers;
     let { email } = req.query;
-    console.log(email);
+
     try {
       offers = await getUserOffers(client, "users", email);
       res.status(201).json({ message: "Offers Loaded", offers: offers });
