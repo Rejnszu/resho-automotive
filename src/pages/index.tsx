@@ -11,6 +11,7 @@ interface Props {
 }
 
 const HomePage = ({ offers }: Props) => {
+  console.log(typeof window !== "undefined" && localStorage.getItem("userId"));
   return (
     <main>
       <Hero />

@@ -21,6 +21,13 @@
       border-top: 1px solid white;
     }
   }
+  @media (max-width: 500px) {
+    padding: 0.3rem 0.3rem;
+    right: 10px;
+    svg {
+      font-size: 2rem;
+    }
+  }
 }
 .contact-widget__messenger {
   position: fixed;

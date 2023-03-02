@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 const AddOfferForm = () => {
-  const email = useSelector((state: RootState) => state.user.user.email);
+  const { email, phone } = useSelector((state: RootState) => state.user.user);
   const router = useRouter();
   const [addNewOffer, { isSuccess, isLoading, isError }] =
     useAddOfferMutation();
@@ -29,6 +29,7 @@ const AddOfferForm = () => {
     color: "",
     price: 0,
     email: email,
+    phone: phone,
   });
 
   const onChange = (

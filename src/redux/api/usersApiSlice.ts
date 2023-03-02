@@ -1,14 +1,23 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { userActions } from "../user-slice";
 
 export const usersApiSlice = createApi({
   reducerPath: "usersApiSlice",
   baseQuery: fetchBaseQuery({
-    baseUrl: `/api/manage-users`,
+    baseUrl: `/api/manage-users/`,
   }),
   tagTypes: ["Users"],
   endpoints: (builder) => ({
-    getUsers: builder.query<any, void>({
-      query: () => "",
+    getLoggedUser: builder.query<any, string>({
+      query: (id) => `?id=${id}`,
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(userActions.setUser(data.user));
+        } catch (err) {
+          console.log(err.message);
+        }
+      },
       providesTags: ["Users"],
     }),
     createUser: builder.mutation({
@@ -30,4 +39,8 @@ export const usersApiSlice = createApi({
   }),
 });
 
-export const { useCreateUserMutation, useGetUserMutation } = usersApiSlice;
+export const {
+  useCreateUserMutation,
+  useGetUserMutation,
+  useGetLoggedUserQuery,
+} = usersApiSlice;

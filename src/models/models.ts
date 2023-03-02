@@ -4,10 +4,8 @@ export interface CarOffer {
   description: string;
   model: string;
   brand: string;
-
   mileage: number;
   year: number;
-
   engine: string;
   power: number;
   engineCapacity: number;
@@ -16,6 +14,7 @@ export interface CarOffer {
   price: number;
   _id?: string;
   email?: string;
+  phone?: number;
 }
 
 export interface User {

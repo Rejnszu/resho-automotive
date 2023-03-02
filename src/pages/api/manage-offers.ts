@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import {
   connectDatabase,
   insertOffer,
-  getAllOffers,
+
   deleteOffer,
   insertOfferToUser,
   deleteUserOffer,

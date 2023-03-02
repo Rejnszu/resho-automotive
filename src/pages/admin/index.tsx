@@ -6,7 +6,7 @@ const AdminPage = () => {
   const router = useRouter();
   let isLogged =
     typeof window !== "undefined" &&
-    sessionStorage.getItem("isLogged") === "true";
+    localStorage.getItem("isLogged") === "true";
 
   if (isLogged) {
     router.push("/admin/dashboard");

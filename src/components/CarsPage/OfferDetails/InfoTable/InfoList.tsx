@@ -55,6 +55,14 @@ const InfoList = ({ currentOffer }: Props) => {
         <li>
           <p>Power:</p>
           <p>{currentOffer.color}</p>
+        </li>{" "}
+        <li>
+          <p>Email:</p>
+          <p>{currentOffer.email}</p>
+        </li>{" "}
+        <li>
+          <p>Phone:</p>
+          <p>{currentOffer.phone}</p>
         </li>
       </ul>
       <div className={styles["info__description"]}>

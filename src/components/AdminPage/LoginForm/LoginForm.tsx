@@ -30,9 +30,10 @@ const LoginForm = () => {
     getUser({ email, password })
       .unwrap()
       .then((data) => {
-        sessionStorage.setItem("isLogged", "true");
+        localStorage.setItem("isLogged", "true");
+        localStorage.setItem("userId", `${data.user.id}`);
         router.replace("/admin/dashboard");
-        console.log(data.user);
+
         dispatch(userActions.setUser(data.user));
       })
       .catch((error) => {

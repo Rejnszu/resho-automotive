@@ -1,4 +1,6 @@
+import { hashPassword, verifyPassword } from "@/utils/auth";
 import { connectDatabase } from "@/utils/db-utils";
+import { ObjectId } from "mongodb";
 
 async function handler(req, res) {
   let client;
@@ -39,10 +41,10 @@ async function handler(req, res) {
       client.close();
       return;
     }
-
+    const hashedPassword = await hashPassword(password);
     const result = await db.collection("users").insertOne({
       email: email,
-      password: password,
+      password: hashedPassword,
       phone: phone,
       offers: offers,
     });
@@ -63,15 +65,35 @@ async function handler(req, res) {
       client.close();
       return;
     }
-    if (user.password !== password) {
+    const isValid = await verifyPassword(password, user.password);
+
+    if (!isValid) {
       res.status(403).json({ message: "Invalid Password!" });
       client.close();
       return;
-    }
-    if (user.password === password) {
+    } else {
       res.status(200).json({
         message: "Logged In",
         user: { email: email, phone: user.phone, id: user._id },
+      });
+      client.close();
+    }
+  }
+  if (req.method === "GET") {
+    let { id } = req.query;
+    const db = client.db();
+    const user = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!user) {
+      res.status(404).json({ message: "User doesnt exist" });
+      client.close();
+      return;
+    } else {
+      res.status(201).json({
+        message: "User found!",
+        user: { email: user.email, phone: user.phone, id: user._id },
       });
       client.close();
     }

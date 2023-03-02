@@ -22,7 +22,8 @@ const DashboardNavigation = () => {
         <Button
           style={styles["button-log-out"]}
           onClick={() => {
-            sessionStorage.setItem("isLogged", "false");
+            localStorage.removeItem("isLogged");
+            localStorage.removeItem("userId");
             router.replace("/admin");
           }}
         >

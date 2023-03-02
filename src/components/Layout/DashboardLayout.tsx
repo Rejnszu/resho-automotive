@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: props) => {
   const router = useRouter();
   const isLogged =
     typeof window !== "undefined" &&
-    sessionStorage.getItem("isLogged") === "true";
+    localStorage.getItem("isLogged") === "true";
 
   useEffect(() => {
     if (!isLogged) {
