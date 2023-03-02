@@ -8,7 +8,7 @@ import Warning from "@/components/Typography/Warning";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 const Offers = () => {
-  const email = useSelector((state: RootState) => state.user.userEmail);
+  const email = useSelector((state: RootState) => state.user.user.email);
 
   const { data, isLoading, isError } = useGetOffersQuery(email);
   const userOffers: CarOffer[] = data?.offers;

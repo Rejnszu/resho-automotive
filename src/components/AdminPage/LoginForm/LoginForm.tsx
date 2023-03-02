@@ -14,6 +14,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errorType, setErrorType] = useState("");
+
   async function login(e, email: string, password: string) {
     e.preventDefault();
     setErrorType("");
@@ -31,8 +32,8 @@ const LoginForm = () => {
       .then((data) => {
         sessionStorage.setItem("isLogged", "true");
         router.replace("/admin/dashboard");
-        console.log(data.email);
-        dispatch(userActions.setUserEmail(data.email));
+        console.log(data.user);
+        dispatch(userActions.setUser(data.user));
       })
       .catch((error) => {
         setErrorType(error.data.message);

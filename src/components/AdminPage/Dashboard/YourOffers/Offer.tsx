@@ -14,7 +14,7 @@ interface Props {
 const Offer = ({ offer }: Props) => {
   const [deleteOffer, { isLoading, isSuccess }] = useDeleteOfferMutation();
   const router = useRouter();
-  const email = useSelector((state: RootState) => state.user.userEmail);
+  const email = useSelector((state: RootState) => state.user.user.email);
   if (isLoading) {
     return <Warning>Deleting offer</Warning>;
   }

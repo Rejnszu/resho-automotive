@@ -42,7 +42,6 @@ const SignUpForm = () => {
     };
     createUser(user)
       .unwrap()
-      .then((payload) => console.log("fulfilled", payload))
       .catch((error) => {
         setErrorType(error.data.message);
       });

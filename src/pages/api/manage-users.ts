@@ -69,7 +69,10 @@ async function handler(req, res) {
       return;
     }
     if (user.password === password) {
-      res.status(200).json({ message: "Logged In", email: email });
+      res.status(200).json({
+        message: "Logged In",
+        user: { email: email, phone: user.phone, id: user._id },
+      });
       client.close();
     }
   }

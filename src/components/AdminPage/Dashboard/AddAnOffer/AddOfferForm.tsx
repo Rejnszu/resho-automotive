@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 const AddOfferForm = () => {
-  const email = useSelector((state: RootState) => state.user.userEmail);
+  const email = useSelector((state: RootState) => state.user.user.email);
   const router = useRouter();
   const [addNewOffer, { isSuccess, isLoading, isError }] =
     useAddOfferMutation();
