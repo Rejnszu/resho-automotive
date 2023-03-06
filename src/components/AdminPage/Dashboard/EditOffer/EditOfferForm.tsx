@@ -123,7 +123,6 @@ const EditOfferForm = ({ offer }: Props) => {
           name="model"
         />
       </div>
-
       <div className={styles["input__wrapper"]}>
         <label htmlFor="number">Mileage [km]</label>
         <input
@@ -217,13 +216,29 @@ const EditOfferForm = ({ offer }: Props) => {
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="fuel">Fuel</label>
-        <input
+        <select
           required
           onChange={onChange}
           value={carOffer.fuel}
-          type="text"
           id="fuel"
           name="fuel"
+        >
+          <option>Fuel</option>
+          <option value="petrol">petrol</option>
+          <option value="diesel">diesel</option>
+          <option value="electric">electric</option>
+          <option value="hybrid">hybrid</option>
+        </select>
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="color">Color</label>
+        <input
+          required
+          onChange={onChange}
+          value={carOffer.color}
+          type="text"
+          id="color"
+          name="color"
         />
       </div>
       <div className={styles["input__wrapper"]}>

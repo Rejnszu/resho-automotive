@@ -10,7 +10,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 const AddOfferForm = () => {
-  const { email, phone } = useSelector((state: RootState) => state.user.user);
+  const { email, phone, name } = useSelector(
+    (state: RootState) => state.user.user
+  );
   const router = useRouter();
   const [addNewOffer, { isSuccess, isLoading, isError }] =
     useAddOfferMutation();
@@ -30,6 +32,7 @@ const AddOfferForm = () => {
     price: 0,
     email: email,
     phone: phone,
+    name: name,
   });
 
   const onChange = (
@@ -140,7 +143,6 @@ const AddOfferForm = () => {
           name="model"
         />
       </div>
-
       <div className={styles["input__wrapper"]}>
         <label htmlFor="number">Mileage [km]</label>
         <input
@@ -162,7 +164,7 @@ const AddOfferForm = () => {
           id="year"
           name="year"
         >
-          <option>year</option>
+          <option>Year</option>
           <option value="1990">1990</option>
           <option value="1991">1991</option>
           <option value="1992">1992</option>
@@ -234,13 +236,30 @@ const AddOfferForm = () => {
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="fuel">Fuel</label>
-        <input
+
+        <select
           required
           onChange={onChange}
           value={carOffer.fuel}
-          type="text"
           id="fuel"
           name="fuel"
+        >
+          <option>Fuel</option>
+          <option value="petrol">petrol</option>
+          <option value="diesel">diesel</option>
+          <option value="electric">electric</option>
+          <option value="hybrid">hybrid</option>
+        </select>
+      </div>
+      <div className={styles["input__wrapper"]}>
+        <label htmlFor="color">Color</label>
+        <input
+          required
+          onChange={onChange}
+          value={carOffer.color}
+          type="text"
+          id="color"
+          name="color"
         />
       </div>
       <div className={styles["input__wrapper"]}>

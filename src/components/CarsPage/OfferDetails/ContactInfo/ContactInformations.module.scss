@@ -1,0 +1,19 @@
+.contact-informations {
+  position: absolute;
+  top: 100px;
+  left: -100px;
+  @media (max-width: 700px) {
+    position: unset;
+  }
+}
+.informations__list {
+  margin-top: 1rem;
+  list-style: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+  li {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 1rem;
+  }
+}

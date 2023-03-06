@@ -12,7 +12,7 @@ async function handler(req, res) {
   }
   if (req.method === "POST") {
     const data = req.body;
-    const { email, password, phone, offers } = data;
+    const { email, name, password, phone, offers } = data;
 
     const db = client.db();
     if (!email || !email.includes("@")) {
@@ -20,15 +20,18 @@ async function handler(req, res) {
         message: "Incorrect Email.",
       });
       return;
-    }
-    if (!password || password.trim().length < 6) {
+    } else if (!name || name.trim().length === 0) {
+      res.status(422).json({
+        message: "Empty name field.",
+      });
+      return;
+    } else if (!password || password.trim().length < 6) {
       res.status(422).json({
         message:
           "Invalid input, password should be at least 6 characters long.",
       });
       return;
-    }
-    if (phone.length < 9) {
+    } else if (phone.length < 9) {
       res.status(422).json({
         message: "Incorrect Phone Number.",
       });
@@ -44,13 +47,13 @@ async function handler(req, res) {
     const hashedPassword = await hashPassword(password);
     const result = await db.collection("users").insertOne({
       email: email,
+      name: name,
       password: hashedPassword,
       phone: phone,
       offers: offers,
     });
     res.status(201).json({
       message: "Created user!",
-      user: { email: email, password: password, phone: phone },
     });
     client.close();
   }
@@ -74,7 +77,12 @@ async function handler(req, res) {
     } else {
       res.status(200).json({
         message: "Logged In",
-        user: { email: email, phone: user.phone, id: user._id },
+        user: {
+          email: email,
+          phone: user.phone,
+          id: user._id,
+          name: user.name,
+        },
       });
       client.close();
     }

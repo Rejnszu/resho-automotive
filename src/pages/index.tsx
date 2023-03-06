@@ -32,7 +32,7 @@ export async function getStaticProps() {
     props: {
       offers: offers.slice(-10).reverse(),
     },
-    revalidate: 60,
+    revalidate: 30,
   };
 }
 export default HomePage;

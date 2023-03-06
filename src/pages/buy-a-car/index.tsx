@@ -20,7 +20,7 @@ export async function getStaticProps() {
     props: {
       offers: offers,
     },
-    revalidate: 60,
+    revalidate: 30,
   };
 }
 export default CarsPage;

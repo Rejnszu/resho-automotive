@@ -4,14 +4,20 @@
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 35px;
   margin: 2rem 0;
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+  }
   li {
     p {
       &:nth-of-type(1) {
         font-family: var(--bold-font);
         font-size: 1.2rem;
+        margin-bottom: 0.3rem;
       }
       &:nth-of-type(2) {
         font-size: 1.5rem;
+        font-weight: bold;
       }
     }
   }
@@ -23,9 +29,11 @@
     &:nth-of-type(1) {
       font-family: var(--bold-font);
       font-size: 1.2rem;
+      margin-bottom: 0.3rem;
     }
     &:nth-of-type(2) {
       font-size: 1.5rem;
+      font-weight: bold;
     }
   }
 }

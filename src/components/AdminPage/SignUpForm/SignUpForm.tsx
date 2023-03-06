@@ -11,7 +11,9 @@ const SignUpForm = () => {
   const router = useRouter();
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const repeatedPasswordRef = useRef(null);
   const phoneRef = useRef(null);
+  const nameRef = useRef(null);
   const [errorType, setErrorType] = useState<string>();
   const [createUser, { isLoading, isSuccess }] = useCreateUserMutation();
 
@@ -29,14 +31,26 @@ const SignUpForm = () => {
         "Invalid input, password should be at least 6 characters long."
       );
       return;
+    } else if (
+      passwordRef.current.value !== repeatedPasswordRef.current.value
+    ) {
+      setErrorType("Entered passwords are different.");
+      return;
+    } else if (
+      !nameRef.current.value ||
+      nameRef.current.value.trim().length === 0
+    ) {
+      setErrorType("Invalid name input.");
+      return;
     } else if (!phoneRef.current.value || phoneRef.current.value.length < 9) {
       setErrorType("Incorrect phone.");
       return;
     }
 
     const user: User = {
-      email: emailRef.current.value,
+      email: emailRef.current.value.toLowerCase(),
       password: passwordRef.current.value,
+      name: nameRef.current.value,
       phone: phoneRef.current.value,
       offers: [],
     };
@@ -55,11 +69,20 @@ const SignUpForm = () => {
     <div className={styles["sign-up__wrapper"]}>
       <form onSubmit={submitUser} className={styles["sign-up-form"]}>
         <label htmlFor="user">Email</label>
-        <input required ref={emailRef} type="text" id="user" />
+        <input required ref={emailRef} type="text" id="user" />{" "}
+        <label htmlFor="name">Name</label>
+        <input required ref={nameRef} type="text" id="name" />
         <label htmlFor="password">Password</label>
-        <input required ref={passwordRef} typeof="phone" id="password" />{" "}
+        <input required ref={passwordRef} type="password" id="password" />{" "}
+        <label htmlFor="repeatpassword">Repeat Password</label>
+        <input
+          required
+          ref={repeatedPasswordRef}
+          type="password"
+          id="repeatpassword"
+        />
         <label htmlFor="phone">Phone</label>
-        <input required ref={phoneRef} typeof="tel" id="phone" />
+        <input required ref={phoneRef} type="tel" id="phone" />
         <Button type="submit">Sign up</Button>
       </form>
       {isLoading && (

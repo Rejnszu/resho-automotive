@@ -106,7 +106,6 @@ async function handler(req, res) {
 
     if (
       title.trim().length === 0 ||
-      images.length === 0 ||
       description.trim().length === 0 ||
       model.trim().length === 0 ||
       power === 0 ||

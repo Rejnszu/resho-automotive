@@ -15,10 +15,12 @@ export interface CarOffer {
   _id?: string;
   email?: string;
   phone?: number;
+  name?: string;
 }
 
 export interface User {
   email: string;
+  name: string;
   password: string;
   phone: number;
   offers: CarOffer[];
