@@ -52,17 +52,14 @@ export async function updateUserOffer(client, collection, email, offer, _id) {
     (offer) => offer._id.toString() === _id
   );
 
-  offers[offerToChangeIndex] = offer;
-
   const update = await db.collection(collection).updateOne(
     { email: email },
     {
       $set: {
-        offers: offers,
+        ["offers." + offerToChangeIndex]: offer,
       },
     }
   );
-  // return user.offers;
 }
 export async function deleteUserOffer(client, collection, userEmail, id) {
   const db = client.db();

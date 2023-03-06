@@ -21,7 +21,7 @@ const DashboardLayout = ({ children }: props) => {
   });
   useEffect(() => {
     setShowLoader(true);
-    let timer = setTimeout(() => setShowLoader(false), 1000);
+    let timer = setTimeout(() => setShowLoader(false), 500);
     return () => {
       clearTimeout(timer);
     };
