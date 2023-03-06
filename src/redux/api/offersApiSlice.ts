@@ -27,6 +27,14 @@ export const offersApiSlice = createApi({
       }),
       invalidatesTags: ["Offers"],
     }),
+    editOffer: builder.mutation({
+      query: (obj) => ({
+        url: ``,
+        method: "PATCH",
+        body: obj,
+      }),
+      invalidatesTags: ["Offers"],
+    }),
   }),
 });
 
@@ -34,4 +42,5 @@ export const {
   useGetOffersQuery,
   useAddOfferMutation,
   useDeleteOfferMutation,
+  useEditOfferMutation,
 } = offersApiSlice;

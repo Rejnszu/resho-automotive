@@ -43,7 +43,10 @@ const LoginForm = () => {
 
   return (
     <div className={styles["login__wrapper"]}>
-      <form className={styles["login-form"]}>
+      <form
+        onSubmit={(e) => login(e, email, password)}
+        className={styles["login-form"]}
+      >
         <label htmlFor="user">Email</label>
         <input
           value={email}
@@ -55,10 +58,10 @@ const LoginForm = () => {
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          typeof="text"
+          type="password"
           id="password"
         />
-        <Button onClick={(e) => login(e, email, password)}>Log in</Button>
+        <Button type="submit">Log in</Button>
       </form>
       <Button
         onClick={() => {

@@ -18,7 +18,6 @@ export const usersApiSlice = createApi({
           console.log(err.message);
         }
       },
-      providesTags: ["Users"],
     }),
     createUser: builder.mutation({
       query: (user) => ({

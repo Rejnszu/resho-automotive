@@ -1,12 +1,13 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import {
   connectDatabase,
   insertOffer,
-
   deleteOffer,
   insertOfferToUser,
   deleteUserOffer,
   getUserOffers,
+  updateOffer,
+  updateUserOffer,
 } from "@/utils/db-utils";
 
 async function handler(req, res) {
@@ -85,6 +86,57 @@ async function handler(req, res) {
       res.status(500).json({ message: error.message });
       return;
     }
+  } else if (req.method === "PATCH") {
+    const offer = req.body;
+    const {
+      title,
+      images,
+      description,
+      model,
+      power,
+      mileage,
+      year,
+      engine,
+      price,
+      email,
+      phone,
+      _id,
+    } = offer;
+    const newOffer = { ...offer, _id: new ObjectId(offer._id) };
+
+    if (
+      title.trim().length === 0 ||
+      images.length === 0 ||
+      description.trim().length === 0 ||
+      model.trim().length === 0 ||
+      power === 0 ||
+      power === undefined ||
+      mileage === 0 ||
+      mileage === undefined ||
+      year === 0 ||
+      year === undefined ||
+      engine.trim().length === 0 ||
+      price === 0 ||
+      price === undefined
+    ) {
+      res.status(422).json({ message: "One of fields is empty." });
+      return;
+    }
+
+    try {
+      await updateOffer(client, "offers", newOffer, _id);
+      await updateUserOffer(client, "users", email, newOffer, _id);
+
+      client.close();
+    } catch (error) {
+      res.status(500).json({ message: "Updating data failed!" });
+      client.close();
+      return;
+    }
+
+    res
+      .status(201)
+      .json({ message: "Offer was edited succesfully!", offer: offer });
   }
   setTimeout(() => client.close(), 1500);
 }

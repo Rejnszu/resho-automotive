@@ -4,7 +4,7 @@ import { CarOffer } from "@/models/models";
 import { useRouter } from "next/router";
 import { useDeleteOfferMutation } from "@/redux/api/offersApiSlice";
 import Warning from "@/components/Typography/Warning";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -41,6 +41,9 @@ const Offer = ({ offer }: Props) => {
         target="_blank"
       >
         Check Live
+      </Link>
+      <Link href={`/admin/dashboard/your-offers/${offer._id}`}>
+        <AiFillEdit />
       </Link>
       <button
         className={styles["button--add-offer"]}

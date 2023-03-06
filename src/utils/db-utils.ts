@@ -14,6 +14,12 @@ export async function insertOffer(client, collection, document) {
   const result = await db.collection(collection).insertOne(document);
   return result;
 }
+export async function updateOffer(client, collection, offer, _id) {
+  const db = client.db();
+  const result = await db
+    .collection(collection)
+    .replaceOne({ _id: new ObjectId(_id) }, offer);
+}
 export async function getAllOffers(client, collection) {
   const db = client.db();
   const documents = await db.collection(collection).find().toArray();
@@ -39,7 +45,25 @@ export async function getUserOffers(client, collection, email) {
   const user = await db.collection(collection).findOne({ email: email });
   return user.offers;
 }
+export async function updateUserOffer(client, collection, email, offer, _id) {
+  const db = client.db();
+  const offers = await getUserOffers(client, collection, email);
+  const offerToChangeIndex = offers.findIndex(
+    (offer) => offer._id.toString() === _id
+  );
 
+  offers[offerToChangeIndex] = offer;
+
+  const update = await db.collection(collection).updateOne(
+    { email: email },
+    {
+      $set: {
+        offers: offers,
+      },
+    }
+  );
+  // return user.offers;
+}
 export async function deleteUserOffer(client, collection, userEmail, id) {
   const db = client.db();
   const documents = await db

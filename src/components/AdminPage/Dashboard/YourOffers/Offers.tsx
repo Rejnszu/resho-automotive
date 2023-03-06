@@ -23,6 +23,9 @@ const Offers = () => {
   if (isError) {
     return <Warning>Couldn't fetch your offers list.</Warning>;
   }
+  if (userOffers.length === 0) {
+    return <Warning>You have no offers yet.</Warning>;
+  }
   return (
     <section>
       <ul className={styles.offers}>
