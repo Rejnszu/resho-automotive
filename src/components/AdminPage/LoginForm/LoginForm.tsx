@@ -35,7 +35,6 @@ const LoginForm = () => {
         router.replace("/admin/dashboard");
 
         dispatch(userActions.setUser(data.user));
-        console.log(data.user);
       })
       .catch((error) => {
         setErrorType(error.data.message);

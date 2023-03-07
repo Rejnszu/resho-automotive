@@ -12,7 +12,7 @@ const OfferEdit = () => {
   const email = useSelector((state: RootState) => state.user?.user?.email);
   const { data, isLoading, isSuccess } = useGetOffersQuery(email);
   const selectedOffer = data?.offers?.find((offer) => offer._id === id);
-
+  console.log(selectedOffer);
   if (isLoading) {
     <div className="center-loader">
       <Spinner />

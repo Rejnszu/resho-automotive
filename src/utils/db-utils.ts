@@ -16,9 +16,7 @@ export async function insertOffer(client, collection, document) {
 }
 export async function updateOffer(client, collection, offer, _id) {
   const db = client.db();
-  const result = await db
-    .collection(collection)
-    .replaceOne({ _id: new ObjectId(_id) }, offer);
+  await db.collection(collection).replaceOne({ _id: new ObjectId(_id) }, offer);
 }
 export async function getAllOffers(client, collection) {
   const db = client.db();
@@ -27,9 +25,7 @@ export async function getAllOffers(client, collection) {
 }
 export async function deleteOffer(client, collection, id) {
   const db = client.db();
-  const documents = await db
-    .collection(collection)
-    .deleteOne({ _id: new ObjectId(id) });
+  await db.collection(collection).deleteOne({ _id: new ObjectId(id) });
 }
 
 // User specific DB utils
@@ -69,4 +65,40 @@ export async function deleteUserOffer(client, collection, userEmail, id) {
       { email: userEmail },
       { $pull: { offers: { _id: new ObjectId(id) } } }
     );
+}
+
+// User Settings
+export async function deleteUser(client, collection, email) {
+  const db = client.db();
+  await db.collection(collection).deleteOne({ email: email });
+  await db.collection("offers").deleteMany({ email: email });
+}
+export async function updateUserPassword(
+  client,
+  collection,
+  email,
+  newPassword
+) {
+  const db = client.db();
+  await db
+    .collection(collection)
+    .updateOne({ email: email }, { $set: { password: newPassword } });
+}
+export async function updateUserName(client, collection, email, newName) {
+  const db = client.db();
+  await db
+    .collection(collection)
+    .updateOne({ email: email }, { $set: { name: newName } });
+  await db
+    .collection("offers")
+    .updateMany({ email: email }, { $set: { name: newName } });
+}
+export async function updateUserPhone(client, collection, email, newPhone) {
+  const db = client.db();
+  await db
+    .collection(collection)
+    .updateOne({ email: email }, { $set: { phone: newPhone } });
+  await db
+    .collection("offers")
+    .updateMany({ email: email }, { $set: { phone: newPhone } });
 }

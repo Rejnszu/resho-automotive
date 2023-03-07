@@ -35,6 +35,21 @@ export const usersApiSlice = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+    deleteUser: builder.mutation({
+      query: (user) => ({
+        url: `?email=${user.email}&password=${user.password}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+    updateUserInformations: builder.mutation({
+      query: (editedUser) => ({
+        url: ``,
+        method: "PATCH",
+        body: editedUser,
+      }),
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 
@@ -42,4 +57,6 @@ export const {
   useCreateUserMutation,
   useGetUserMutation,
   useGetLoggedUserQuery,
+  useDeleteUserMutation,
+  useUpdateUserInformationsMutation,
 } = usersApiSlice;

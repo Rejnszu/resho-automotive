@@ -1,0 +1,45 @@
+.settings {
+  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+.settings form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  max-width: 100%;
+  gap: 15px;
+
+  button {
+    margin-top: 1rem;
+    max-width: 40%;
+    text-align: center;
+    padding: 0.75rem 0;
+    @media (max-width: 600px) {
+      max-width: 100%;
+    }
+  }
+  input,
+  textarea {
+    border: none;
+    padding: 5px;
+    box-shadow: var(--image-shadow);
+    background-color: var(--brown--light);
+    font-size: 16px;
+    border-radius: 2px;
+    resize: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  label {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}

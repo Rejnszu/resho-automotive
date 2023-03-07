@@ -16,6 +16,9 @@ const DashboardNavigation = () => {
           <li>
             <Link href="/admin/dashboard/your-offers">See all offers</Link>
           </li>
+          <li>
+            <Link href="/admin/dashboard/user-settings">User settings</Link>
+          </li>
         </ul>
       </div>
       <div className={styles["nav-bar-top"]}>

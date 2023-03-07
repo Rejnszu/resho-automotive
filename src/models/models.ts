@@ -23,5 +23,5 @@ export interface User {
   name: string;
   password: string;
   phone: number;
-  offers: CarOffer[];
+  offers?: CarOffer[];
 }

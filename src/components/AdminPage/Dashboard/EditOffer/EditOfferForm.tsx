@@ -13,9 +13,14 @@ interface Props {
   offer: CarOffer;
 }
 const EditOfferForm = ({ offer }: Props) => {
+  const { name, phone } = useSelector((state: RootState) => state.user.user);
   const router = useRouter();
-  const [editOffer, { isSuccess, isLoading, isError }] = useEditOfferMutation();
-  const [carOffer, setCarOffer] = useState<CarOffer>(offer);
+  const [editOffer, { isSuccess, isLoading }] = useEditOfferMutation();
+  const [carOffer, setCarOffer] = useState<CarOffer>({
+    ...offer,
+    name: name,
+    phone: phone,
+  });
 
   const onChange = (
     e: React.ChangeEvent<

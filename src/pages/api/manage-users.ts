@@ -1,5 +1,11 @@
 import { hashPassword, verifyPassword } from "@/utils/auth";
-import { connectDatabase } from "@/utils/db-utils";
+import {
+  connectDatabase,
+  deleteUser,
+  updateUserName,
+  updateUserPassword,
+  updateUserPhone,
+} from "@/utils/db-utils";
 import { ObjectId } from "mongodb";
 
 async function handler(req, res) {
@@ -101,7 +107,83 @@ async function handler(req, res) {
     } else {
       res.status(201).json({
         message: "User found!",
-        user: { email: user.email, phone: user.phone, id: user._id },
+        user: {
+          email: user.email,
+          phone: user.phone,
+          id: user._id,
+          name: user.name,
+        },
+      });
+      client.close();
+    }
+  }
+  if (req.method === "DELETE") {
+    const { email, password } = req.query;
+
+    const db = client.db();
+    const user = await db.collection("users").findOne({ email: email });
+
+    if (!user) {
+      res.status(404).json({ message: "User doesnt exist" });
+      client.close();
+      return;
+    }
+    const isValid = await verifyPassword(password, user.password);
+
+    if (!isValid) {
+      res.status(403).json({ message: "Invalid Password!" });
+      client.close();
+      return;
+    } else {
+      await deleteUser(client, "users", email);
+      res.status(200).json({
+        message: "User Deleted",
+      });
+      client.close();
+    }
+  }
+  if (req.method === "PATCH") {
+    const {
+      email,
+      phone: newPhone,
+      name: newName,
+      password: newPassword,
+      confirmPassword,
+    } = req.body;
+
+    const db = client.db();
+    const user = await db.collection("users").findOne({ email: email });
+
+    if (!user) {
+      res.status(404).json({ message: "User doesnt exist" });
+      client.close();
+      return;
+    }
+    const isValid = await verifyPassword(confirmPassword, user.password);
+
+    if (!isValid) {
+      res.status(403).json({ message: "Invalid Password!" });
+      client.close();
+      return;
+    } else {
+      if (newPassword.trim() !== "" && newPassword.length >= 6) {
+        const hashedPassword = await hashPassword(newPassword);
+        await updateUserPassword(client, "users", email, hashedPassword);
+      }
+      if (newPhone !== undefined && newPhone.toString().length >= 9) {
+        await updateUserPhone(client, "users", email, newPhone);
+      }
+      if (newName.trim() !== "") {
+        await updateUserName(client, "users", email, newName);
+      }
+      res.status(200).json({
+        message: "User Updated",
+        user: {
+          email: email,
+          phone: newPhone,
+          id: user._id,
+          name: newName,
+        },
       });
       client.close();
     }
