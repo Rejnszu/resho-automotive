@@ -1,3 +1,4 @@
+@import "../../../styles/mixins";
 .sign-up__wrapper {
   min-height: 80vh;
   display: flex;
@@ -16,19 +17,7 @@
 
   input,
   textarea {
-    border: none;
-    padding: 5px;
-    box-shadow: var(--image-shadow);
-    background-color: var(--brown--light);
-    font-size: 16px;
-    border-radius: 2px;
-    resize: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &:focus {
-      outline: none;
-    }
+    @include inputs;
   }
   label {
     font-weight: bold;

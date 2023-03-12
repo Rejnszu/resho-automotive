@@ -36,13 +36,12 @@ $left-nav-bar-width: 150px;
   left: $left-nav-bar-width;
   background-color: var(--brown--light-1);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 50px;
   align-items: center;
 }
 .button-log-out {
-  margin-left: auto;
   display: flex;
-
   align-items: center;
   font-size: 1rem !important;
   padding: 10px 20px !important;
@@ -50,4 +49,7 @@ $left-nav-bar-width: 150px;
     font-size: 1.5rem;
     margin-left: 10px;
   }
+}
+.button-home {
+  padding: 10px 20px;
 }

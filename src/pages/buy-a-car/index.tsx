@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CarOffer } from "@/models/models";
 
 import OffersGrid from "@/components/CarsPage/OffersGrid";
 import { getAllOffers, connectDatabase } from "@/utils/db-utils";
 import Warning from "@/components/Typography/Warning";
-
+import Filters from "@/components/CarsPage/Filters/Filters";
+import {
+  filterByHigherRangeParameter,
+  filterByLowerRangeParameter,
+  filterByStringParameter,
+} from "@/utils/filters";
+import useFilter from "@/hooks/useFilter";
 const CarsPage = (props) => {
   const { offers } = props;
+  const { filterOffers, filteredOffers } = useFilter(offers);
+
   if (offers.length === 0) {
     return (
       <div className="center-loader">
@@ -14,7 +22,12 @@ const CarsPage = (props) => {
       </div>
     );
   }
-  return <main>{<OffersGrid offers={offers} />}</main>;
+  return (
+    <main className="content-margin">
+      <Filters filterOffers={filterOffers} />
+      <OffersGrid offers={filteredOffers} />
+    </main>
+  );
 };
 
 export async function getStaticProps() {

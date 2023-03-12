@@ -1,0 +1,33 @@
+@import "./../../../styles/mixins";
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px 20px;
+}
+.filter-outer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    transform: translateY(-20px);
+  }
+}
+.filter-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 100%;
+
+  input,
+  textarea,
+  select {
+    @include inputs;
+  }
+  label {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}

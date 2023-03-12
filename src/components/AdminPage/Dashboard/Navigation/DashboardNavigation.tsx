@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Button from "@/components/UI/Button";
 import { BsBoxArrowRight } from "react-icons/bs";
+import { AiOutlineHome } from "react-icons/ai";
 const DashboardNavigation = () => {
   const router = useRouter();
   return (
@@ -22,6 +23,12 @@ const DashboardNavigation = () => {
         </ul>
       </div>
       <div className={styles["nav-bar-top"]}>
+        <Button
+          onClick={() => router.replace("/")}
+          style={styles["button-home"]}
+        >
+          <AiOutlineHome />
+        </Button>
         <Button
           style={styles["button-log-out"]}
           onClick={() => {

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Cookies from "../Cookies/Cookies";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+
 interface props {
   children: React.ReactNode;
 }

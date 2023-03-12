@@ -1,7 +1,7 @@
 .info-list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 35px;
   margin: 2rem 0;
   @media (max-width: 600px) {
@@ -9,14 +9,16 @@
     flex-direction: column;
   }
   li {
+    // box-shadow: 0 0 8px black;
+    // padding: 10px;
     p {
       &:nth-of-type(1) {
         font-family: var(--bold-font);
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-bottom: 0.3rem;
       }
       &:nth-of-type(2) {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: bold;
       }
     }

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Zen+Dots&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+NKo&display=swap");
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -57,5 +58,12 @@ a {
 
   @media (max-width: 1000px) {
     padding: 4rem 0;
+  }
+}
+
+.content-margin {
+  margin-top: 4.6rem;
+  @media (max-width: 800px) {
+    margin-top: 0;
   }
 }

@@ -1,3 +1,4 @@
+@import "../../../styles/mixins";
 .form {
   flex: 0 0 49%;
   display: flex;
@@ -20,19 +21,7 @@
   gap: 5px;
   input,
   textarea {
-    border: none;
-    padding: 5px;
-    box-shadow: var(--image-shadow);
-    background-color: var(--brown--light);
-    font-size: 16px;
-    border-radius: 2px;
-    resize: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &:focus {
-      outline: none;
-    }
+    @include inputs;
   }
   label {
     font-weight: bold;
