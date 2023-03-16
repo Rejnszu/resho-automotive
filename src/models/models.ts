@@ -25,3 +25,19 @@ export interface User {
   phone: number;
   offers?: CarOffer[];
 }
+
+export interface FilterObject {
+  model: string;
+  brand: string;
+  year: string;
+  fuel: string;
+  color: string;
+  powerUpperLevel: number;
+  powerLowerLevel: number;
+  mileageUpperLevel: number;
+  mileageLowerLevel: number;
+  engineCapacityUpperLevel: number;
+  engineCapacityLowerLevel: number;
+  priceUpperLevel: number;
+  priceLowerLevel: number;
+}

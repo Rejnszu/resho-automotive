@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CarOffer } from "@/models/models";
 import styles from "./Offers.module.scss";
 import Offer from "./Offer";
-import { useGetOffersQuery } from "@/redux/api/offersApiSlice";
+import { useGetUserOffersQuery } from "@/redux/api/offersApiSlice";
 import Spinner from "@/components/UI/Spinner";
 import Warning from "@/components/Typography/Warning";
 import { useSelector } from "react-redux";
@@ -10,7 +10,10 @@ import { RootState } from "@/redux/store";
 const Offers = () => {
   const email = useSelector((state: RootState) => state.user?.user?.email);
 
-  const { data, isLoading, isError } = useGetOffersQuery(email);
+  const { data, isLoading, isError } = useGetUserOffersQuery({
+    email: email,
+    type: "user",
+  });
   const userOffers: CarOffer[] = data?.offers;
 
   if (isLoading) {

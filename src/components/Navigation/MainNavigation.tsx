@@ -42,7 +42,7 @@ const MainNavigation = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/buy-a-car">Buy a car</Link>
+            <Link href="/buy-a-car/1">Buy a car</Link>
           </li>
           <li>
             <Link href="/finance-your-car">Finances</Link>
@@ -81,7 +81,7 @@ const MainNavigation = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/buy-a-car">Buy a car</Link>
+            <Link href="/buy-a-car/1">Buy a car</Link>
           </li>
           <li>
             <Link href="/finance-your-car">Finances</Link>

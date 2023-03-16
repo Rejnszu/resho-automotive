@@ -20,8 +20,23 @@ export async function updateOffer(client, collection, offer, _id) {
 }
 export async function getAllOffers(client, collection) {
   const db = client.db();
-  const documents = await db.collection(collection).find().toArray();
-  return documents;
+  const offers = await db.collection(collection).find().toArray();
+  return offers;
+}
+export async function getOffersByRange(client, collection, min, max) {
+  const db = client.db();
+  const offers = await db
+    .collection(collection)
+    .find()
+    .skip(+min)
+    .limit(+max)
+    .toArray();
+  return offers;
+}
+export async function getOffersCount(client, collection) {
+  const db = client.db();
+  const count = await db.collection(collection).count();
+  return count;
 }
 export async function deleteOffer(client, collection, id) {
   const db = client.db();

@@ -36,7 +36,7 @@ const Offer = ({ offer }: Props) => {
       </p>
       <p>Year: {offer.year}</p>
       <Link
-        href={`/buy-a-car/${offer._id}`}
+        href={`/buy-a-car/offer/${offer._id}`}
         rel="noopener noreferrer"
         target="_blank"
       >

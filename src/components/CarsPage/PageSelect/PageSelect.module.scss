@@ -1,0 +1,30 @@
+@import "../../../styles/mixins";
+
+.pages {
+  display: flex;
+
+  select {
+    @include inputs;
+    margin-left: auto;
+  }
+}
+
+.pages__numbers {
+  list-style: none;
+  display: flex;
+  margin-left: 10px;
+  li {
+    font-size: 1.5rem;
+    box-shadow: var(--image-shadow);
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--brown--light-1);
+    cursor: pointer;
+  }
+}

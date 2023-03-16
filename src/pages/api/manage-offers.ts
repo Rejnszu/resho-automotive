@@ -8,6 +8,9 @@ import {
   getUserOffers,
   updateOffer,
   updateUserOffer,
+  getOffersByRange,
+  getOffersCount,
+  getAllOffers,
 } from "@/utils/db-utils";
 
 async function handler(req, res) {
@@ -64,12 +67,38 @@ async function handler(req, res) {
     res
       .status(201)
       .json({ message: "Offer was added succesfully!", offer: offer });
-  } else if (req.method === "GET") {
+  } else if (req.method === "GET" && req.query.type === "user") {
     let offers;
     let { email } = req.query;
 
     try {
       offers = await getUserOffers(client, "users", email);
+      res.status(201).json({ message: "Offers Loaded", offers: offers });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+      return;
+    }
+  } else if (req.method === "GET" && req.query.type === "range") {
+    let offers;
+    let count;
+    let { min, max } = req.query;
+
+    try {
+      offers = await getOffersByRange(client, "offers", min, max);
+      count = await getOffersCount(client, "offers");
+      res
+        .status(201)
+        .json({ message: "Offers Loaded", offers: offers, count: count });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+      return;
+    }
+  } else if (req.method === "GET" && req.query.type === "all") {
+    let offers;
+
+    try {
+      offers = await getAllOffers(client, "offers");
+
       res.status(201).json({ message: "Offers Loaded", offers: offers });
     } catch (error) {
       res.status(500).json({ message: error.message });

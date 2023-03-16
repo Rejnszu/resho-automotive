@@ -2,15 +2,18 @@ import EditOfferForm from "@/components/AdminPage/Dashboard/EditOffer/EditOfferF
 import React from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { useGetOffersQuery } from "@/redux/api/offersApiSlice";
-import { CarOffer } from "@/models/models";
+import { useGetUserOffersQuery } from "@/redux/api/offersApiSlice";
+
 import { RootState } from "@/redux/store";
 import Spinner from "@/components/UI/Spinner";
 const OfferEdit = () => {
   const router = useRouter();
   const { id } = router.query;
   const email = useSelector((state: RootState) => state.user?.user?.email);
-  const { data, isLoading, isSuccess } = useGetOffersQuery(email);
+  const { data, isLoading, isSuccess } = useGetUserOffersQuery({
+    email: email,
+    type: "user",
+  });
   const selectedOffer = data?.offers?.find((offer) => offer._id === id);
   console.log(selectedOffer);
   if (isLoading) {

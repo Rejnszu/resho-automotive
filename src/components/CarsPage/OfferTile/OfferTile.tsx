@@ -11,7 +11,7 @@ import {
 
 const OfferTile = ({ ...props }: CarOffer) => {
   return (
-    <Link href={`/buy-a-car/${props._id}`}>
+    <Link href={`/buy-a-car/offer/${props._id}`}>
       <div
         className={styles["offer-tile"]}
         style={{ backgroundImage: `url(${props.images[0]})` }}

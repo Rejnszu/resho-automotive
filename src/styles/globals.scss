@@ -47,11 +47,15 @@ a {
 .bold {
   font-weight: bold;
 }
+
 .center-loader {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  &--horizontal {
+    min-height: 20vh;
+  }
 }
 .section-padding {
   padding: 4rem 0 6rem 0;

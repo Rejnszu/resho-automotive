@@ -4,28 +4,23 @@ import {
   filterByLowerRangeParameter,
   filterByStringParameter,
 } from "@/utils/filters";
+import { useDispatch, useSelector } from "react-redux";
 import { CarOffer } from "@/models/models";
+import { offersActions } from "@/redux/offersPageSlice";
+import { RootState } from "@/redux/store";
 const useFilter = (offers: CarOffer[]) => {
+  const dispatch = useDispatch();
+  const filterObject = useSelector(
+    (state: RootState) => state.offers.filterObject
+  );
   const [filteredOffers, setFilteredOffers] = useState(offers);
-  const [filterObject, setFilterObject] = useState({
-    model: "",
-    brand: "",
-    year: "",
-    fuel: "",
-    color: "",
-    powerUpperLevel: null,
-    powerLowerLevel: null,
-    mileageUpperLevel: null,
-    mileageLowerLevel: null,
-    engineCapacityUpperLevel: null,
-    engineCapacityLowerLevel: null,
-    priceUpperLevel: null,
-    priceLowerLevel: null,
-  });
+
   const filterOffers = (filter: string, value: string | number): void => {
-    setFilterObject({ ...filterObject, [filter]: value });
+    dispatch(
+      offersActions.setFilterObject({ ...filterObject, [filter]: value })
+    );
   };
-  console.log(filterObject);
+
   useEffect(() => {
     let result = offers;
     for (const [key, value] of Object.entries(filterObject)) {
@@ -58,6 +53,7 @@ const useFilter = (offers: CarOffer[]) => {
 
     setFilteredOffers(result);
   }, [filterObject, offers]);
+
   return { filterOffers, filteredOffers };
 };
 export default useFilter;

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { offersApiSlice } from "./api/offersApiSlice";
 import { usersApiSlice } from "./api/usersApiSlice";
+import offersReducer from "./offersPageSlice";
 import messengerReducer from "./messenger-slice";
 import cookiesReducer from "./cookies-slice";
 import userReducer from "./user-slice";
@@ -10,6 +11,7 @@ const store = configureStore({
     messenger: messengerReducer,
     cookies: cookiesReducer,
     user: userReducer,
+    offers: offersReducer,
     [offersApiSlice.reducerPath]: offersApiSlice.reducer,
     [usersApiSlice.reducerPath]: usersApiSlice.reducer,
   },
