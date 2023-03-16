@@ -32,7 +32,7 @@ const AddOfferForm = () => {
     year: 0,
     engine: "",
     fuel: "",
-    engine_capacity: 0,
+    enginecapacity: 0,
     color: "",
     price: 0,
     email: email,
