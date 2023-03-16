@@ -191,14 +191,14 @@ const EditOfferForm = ({ offer }: Props) => {
         />
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="engineCapacity">Engine Capacity [cm³]</label>
+        <label htmlFor="enginecapacity">Engine Capacity [cm³]</label>
         <input
           required
           onChange={onChange}
-          value={carOffer.engineCapacity}
+          value={carOffer.enginecapacity}
           type="text"
-          id="engineCapacity"
-          name="engineCapacity"
+          id="enginecapacity"
+          name="enginecapacity"
         />
       </div>
       <div className={styles["input__wrapper"]}>

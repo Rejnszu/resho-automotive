@@ -5,10 +5,12 @@ import {
   filterByStringParameter,
 } from "@/utils/filters";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import { CarOffer } from "@/models/models";
 import { offersActions } from "@/redux/offersPageSlice";
 import { RootState } from "@/redux/store";
 const useFilter = (offers: CarOffer[]) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const filterObject = useSelector(
     (state: RootState) => state.offers.filterObject
@@ -21,13 +23,14 @@ const useFilter = (offers: CarOffer[]) => {
     );
   };
 
+  console.log(filterObject);
   useEffect(() => {
     let result = offers;
     for (const [key, value] of Object.entries(filterObject)) {
       if (
         key === "powerUpperLevel" ||
         key === "mileageUpperLevel" ||
-        key === "engineCapacityUpperLevel" ||
+        key === "enginecapacityUpperLevel" ||
         key == "priceUpperLevel"
       ) {
         result = filterByHigherRangeParameter(
@@ -38,7 +41,7 @@ const useFilter = (offers: CarOffer[]) => {
       } else if (
         key === "powerLowerLevel" ||
         key === "mileageLowerLevel" ||
-        key === "engineCapacityLowerLevel" ||
+        key === "enginecapacityLowerLevel" ||
         key == "priceLowerLevel"
       ) {
         result = filterByLowerRangeParameter(
@@ -54,6 +57,11 @@ const useFilter = (offers: CarOffer[]) => {
     setFilteredOffers(result);
   }, [filterObject, offers]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(offersActions.resetFilter());
+    };
+  }, [router.pathname]);
   return { filterOffers, filteredOffers };
 };
 export default useFilter;

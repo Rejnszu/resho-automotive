@@ -210,15 +210,15 @@ const Filters = ({ filterOffers }: Props) => {
         </div>{" "}
         <div className={styles["filter-outer-wrapper"]}>
           <div className={styles["filter-wrapper"]}>
-            <label htmlFor="engineCapacityLowerLevel">From:</label>
+            <label htmlFor="enginecapacityLowerLevel">From:</label>
 
             <select
               required
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
               }}
-              id="engineCapacityLowerLevel"
-              name="engineCapacityLowerLevel"
+              id="enginecapacityLowerLevel"
+              name="enginecapacityLowerLevel"
             >
               <option value={0}>Default</option>
               <option value={50}>50</option>
@@ -239,15 +239,15 @@ const Filters = ({ filterOffers }: Props) => {
           </div>
           <p>Engine capacity [cm³]:</p>{" "}
           <div className={styles["filter-wrapper"]}>
-            <label htmlFor="engineCapacityUpperLevel">To:</label>
+            <label htmlFor="enginecapacityUpperLevel">To:</label>
 
             <select
               required
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
               }}
-              id="engineCapacityUpperLevel"
-              name="engineCapacityUpperLevel"
+              id="enginecapacityUpperLevel"
+              name="enginecapacityUpperLevel"
             >
               <option value={0}>Default</option>
               <option value={50}>50</option>

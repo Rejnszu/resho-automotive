@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import OffersGrid from "@/components/CarsPage/OffersGrid";
-import { getAllOffers, connectDatabase } from "@/utils/db-utils";
+
 import Warning from "@/components/Typography/Warning";
 import Filters from "@/components/CarsPage/Filters/Filters";
 import useFilter from "@/hooks/useFilter";
@@ -10,12 +10,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/router";
 import Spinner from "@/components/UI/Spinner";
-import {
-  useGetOffersByRangeQuery,
-  useGetAllOffersQuery,
-} from "@/redux/api/offersApiSlice";
+import { useGetAllOffersQuery } from "@/redux/api/offersApiSlice";
 import { CarOffer } from "@/models/models";
-const CarsPage = (props) => {
+const CarsPage = () => {
   const router = useRouter();
   const pageNumber = router.query.pageNumber;
 
@@ -27,35 +24,31 @@ const CarsPage = (props) => {
       type: "all",
     });
   const offers: CarOffer[] = data?.offers;
-  // const count: number = data?.count;
+
   const { filterOffers, filteredOffers } = useFilter(offers);
+  const loadingCondtion = isLoading || isFetching || !filteredOffers;
   useEffect(() => {
     router.push("/buy-a-car/1");
-    refetch();
   }, [offersPerPage, filteredOffers]);
 
-  // if (isLoading || isFetching || !filteredOffers) {
-  //   return (
-  //     <div className="center-loader">
-  //       <Spinner />
-  //     </div>
-  //   );
-  // }
-  // if (filteredOffers?.length === 0) {
-  //   return (
-  //     <div className="center-loader">
-  //       <Warning>No offers found.</Warning>;
-  //     </div>
-  //   );
-  // }
-
+  useEffect(() => {
+    refetch();
+  }, []);
+  if (isError) {
+    return (
+      <div className="center-loader">
+        <Warning>Couldn't fetch offers.</Warning>
+      </div>
+    );
+  }
   return (
     <main className="content-margin">
       <Filters filterOffers={filterOffers} />
       <PageSelect offersAmount={filteredOffers?.length} />
-      {filteredOffers?.length === 0 ? (
+      {filteredOffers?.length === 0 && !loadingCondtion && (
         <Warning>No offers found.</Warning>
-      ) : isLoading || isFetching || !filteredOffers ? (
+      )}
+      {loadingCondtion ? (
         <div className="center-loader center-loader--horizontal">
           <Spinner />
         </div>
@@ -70,19 +63,5 @@ const CarsPage = (props) => {
     </main>
   );
 };
-
-// export async function getServerSideProps() {
-//   const client = await connectDatabase();
-//   const response = await getAllOffers(client, "offers");
-//   const offers = response.map((offer) => {
-//     return { ...offer, _id: offer._id.toString() };
-//   });
-
-//   return {
-//     props: {
-//       offers: offers,
-//     },
-//   };
-// }
 
 export default CarsPage;

@@ -32,7 +32,7 @@ const AddOfferForm = () => {
     year: 0,
     engine: "",
     fuel: "",
-    engineCapacity: 0,
+    engine_capacity: 0,
     color: "",
     price: 0,
     email: email,
@@ -131,10 +131,13 @@ const AddOfferForm = () => {
         <select
           required
           onChange={onChange}
-          value={carOffer.brand}
+          // value={carOffer.brand}
           id="brand"
           name="brand"
         >
+          <option key="default" value="">
+            default
+          </option>
           {carBrands.map((brand) => {
             return (
               <option key={brand.id} value={brand.name}>
@@ -209,14 +212,14 @@ const AddOfferForm = () => {
         />
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="engineCapacity">Engine Capacity [cm³]</label>
+        <label htmlFor="enginecapacity">Engine Capacity [cm³]</label>
         <input
           required
           onChange={onChange}
-          value={carOffer.engineCapacity}
+          value={carOffer.enginecapacity}
           type="text"
-          id="engineCapacity"
-          name="engineCapacity"
+          id="enginecapacity"
+          name="enginecapacity"
         />
       </div>
       <div className={styles["input__wrapper"]}>

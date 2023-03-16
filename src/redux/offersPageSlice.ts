@@ -18,8 +18,8 @@ const initialOffersState: InitialState = {
     powerLowerLevel: null,
     mileageUpperLevel: null,
     mileageLowerLevel: null,
-    engineCapacityUpperLevel: null,
-    engineCapacityLowerLevel: null,
+    enginecapacityUpperLevel: null,
+    enginecapacityLowerLevel: null,
     priceUpperLevel: null,
     priceLowerLevel: null,
   },
@@ -33,6 +33,9 @@ const offersSlice = createSlice({
     },
     setFilterObject(state, action: PayloadAction<FilterObject>) {
       state.filterObject = action.payload;
+    },
+    resetFilter(state) {
+      state.filterObject = initialOffersState.filterObject;
     },
   },
 });
