@@ -26,5 +26,8 @@
     border-radius: 50%;
     background-color: var(--brown--light-1);
     cursor: pointer;
+    &.active {
+      border: 2px solid black;
+    }
   }
 }

@@ -33,6 +33,16 @@ export async function getOffersByRange(client, collection, min, max) {
     .toArray();
   return offers;
 }
+export async function getLatestOffers(client, collection, limit) {
+  const db = client.db();
+  const offers = await db
+    .collection(collection)
+    .find()
+    .sort({ _id: -1 })
+    .limit(limit)
+    .toArray();
+  return offers;
+}
 export async function getOffersCount(client, collection) {
   const db = client.db();
   const count = await db.collection(collection).count();

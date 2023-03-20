@@ -3,7 +3,7 @@ import Hero from "@/components/HomePage/Hero";
 import Banner from "@/components/HomePage/Banner";
 import LatestBanner from "@/components/HomePage/LatestBanner";
 import AboutCompany from "@/components/HomePage/AboutCompany";
-import { connectDatabase, getAllOffers } from "@/utils/db-utils";
+import { connectDatabase, getLatestOffers } from "@/utils/db-utils";
 import { CarOffer } from "@/models/models";
 
 interface Props {
@@ -23,14 +23,14 @@ const HomePage = ({ offers }: Props) => {
 };
 export async function getStaticProps() {
   const client = await connectDatabase();
-  const response = await getAllOffers(client, "offers");
+  const response = await getLatestOffers(client, "offers", 10);
   const offers: CarOffer[] = response.map((offer) => {
     return { ...offer, _id: offer._id.toString() };
   });
 
   return {
     props: {
-      offers: offers.slice(-10).reverse(),
+      offers: offers,
     },
     revalidate: 30,
   };

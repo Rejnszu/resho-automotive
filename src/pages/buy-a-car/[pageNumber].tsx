@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import OffersGrid from "@/components/CarsPage/OffersGrid";
 
@@ -15,10 +15,10 @@ import { CarOffer } from "@/models/models";
 const CarsPage = () => {
   const router = useRouter();
   const pageNumber = router.query.pageNumber;
-
   const offersPerPage = useSelector(
     (state: RootState) => state.offers.offersPerPage
   );
+
   const { data, isLoading, isFetching, isError, refetch } =
     useGetAllOffersQuery({
       type: "all",
@@ -26,7 +26,14 @@ const CarsPage = () => {
   const offers: CarOffer[] = data?.offers;
 
   const { filterOffers, filteredOffers } = useFilter(offers);
+
+  const paginatedOffers = filteredOffers?.slice(
+    +pageNumber * offersPerPage - offersPerPage,
+    +pageNumber * offersPerPage
+  );
+
   const loadingCondtion = isLoading || isFetching || !filteredOffers;
+
   useEffect(() => {
     router.push("/buy-a-car/1");
   }, [offersPerPage, filteredOffers]);
@@ -34,6 +41,7 @@ const CarsPage = () => {
   useEffect(() => {
     refetch();
   }, []);
+
   if (isError) {
     return (
       <div className="center-loader">
@@ -44,7 +52,10 @@ const CarsPage = () => {
   return (
     <main className="content-margin">
       <Filters filterOffers={filterOffers} />
-      <PageSelect offersAmount={filteredOffers?.length} />
+      <PageSelect
+        offersAmount={filteredOffers?.length}
+        currentPageNumber={+pageNumber}
+      />
       {filteredOffers?.length === 0 && !loadingCondtion && (
         <Warning>No offers found.</Warning>
       )}
@@ -53,12 +64,7 @@ const CarsPage = () => {
           <Spinner />
         </div>
       ) : (
-        <OffersGrid
-          offers={filteredOffers.slice(
-            +pageNumber * offersPerPage - offersPerPage,
-            +pageNumber * offersPerPage
-          )}
-        />
+        <OffersGrid offers={paginatedOffers} />
       )}
     </main>
   );

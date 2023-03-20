@@ -23,7 +23,6 @@ const useFilter = (offers: CarOffer[]) => {
     );
   };
 
-  console.log(filterObject);
   useEffect(() => {
     let result = offers;
     for (const [key, value] of Object.entries(filterObject)) {

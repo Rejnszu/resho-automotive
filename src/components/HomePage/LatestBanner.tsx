@@ -5,6 +5,7 @@ import LatestTile from "./LatestTile";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 
 import { CarOffer } from "@/models/models";
+import Warning from "../Typography/Warning";
 interface Props {
   offers: CarOffer[];
 }
@@ -24,6 +25,13 @@ const LatestBanner = ({ offers }: Props) => {
     } else {
       bannerRef!.current.scrollLeft -= 270;
     }
+  }
+  if (offers.length === 0) {
+    return (
+      <div className="center-loader">
+        <Warning>No offers found.</Warning>
+      </div>
+    );
   }
   return (
     <section className={`${styles["latest-section"]} section-padding`}>
@@ -47,6 +55,7 @@ const LatestBanner = ({ offers }: Props) => {
             </button>
           </React.Fragment>
         )}
+
         <ul ref={bannerRef} className={`${styles["latest-banner"]}`}>
           {offers.map((offer) => {
             return <LatestTile key={offer._id} offer={offer} />;

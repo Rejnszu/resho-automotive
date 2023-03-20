@@ -7,7 +7,7 @@ interface InitialState {
 }
 
 const initialOffersState: InitialState = {
-  offersPerPage: 12,
+  offersPerPage: 8,
   filterObject: {
     model: "",
     brand: "",

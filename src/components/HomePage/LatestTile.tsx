@@ -14,7 +14,7 @@ interface Props {
 }
 const LatestTile = ({ offer }: Props) => {
   return (
-    <Link href={`/buy-a-car/${offer._id}`}>
+    <Link href={`/buy-a-car/offer/${offer._id}`}>
       <div
         className={styles["latest-tile"]}
         style={{ backgroundImage: `url(${offer.images[0]})` }}
