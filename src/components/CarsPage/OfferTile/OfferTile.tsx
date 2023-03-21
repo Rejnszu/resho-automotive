@@ -8,6 +8,7 @@ import {
   GiCalendar,
   GiPowerLightning,
 } from "react-icons/gi";
+import { AiFillCar } from "react-icons/ai";
 
 const OfferTile = ({ ...props }: CarOffer) => {
   return (
@@ -16,7 +17,11 @@ const OfferTile = ({ ...props }: CarOffer) => {
         className={styles["offer-tile"]}
         style={{ backgroundImage: `url(${props.images[0]})` }}
       >
-        <p className={styles["tile__title"]}>{props.model}</p>
+        <p className={styles["tile__title"]}>{props.model}</p>{" "}
+        <p className={styles["tile__text"]}>
+          <AiFillCar />
+          {props.brand.toUpperCase()}
+        </p>
         <p className={styles["tile__text"]}>
           <GiRoad />
           {new Intl.NumberFormat("de-DE").format(props.mileage)} KM

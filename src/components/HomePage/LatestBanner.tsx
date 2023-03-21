@@ -3,9 +3,9 @@ import HeadingH2 from "../Typography/Headings/HeadingH2";
 import styles from "./LatestBanner.module.scss";
 import LatestTile from "./LatestTile";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
-
 import { CarOffer } from "@/models/models";
 import Warning from "../Typography/Warning";
+import ScrollContainer from "react-indiana-drag-scroll";
 interface Props {
   offers: CarOffer[];
 }
@@ -14,14 +14,14 @@ const LatestBanner = ({ offers }: Props) => {
 
   function scrollRight() {
     if (window.innerWidth > 600) {
-      bannerRef!.current.scrollLeft += 350;
+      bannerRef!.current.scrollLeft += 360;
     } else {
       bannerRef!.current.scrollLeft += 270;
     }
   }
   function scrollLeft() {
     if (window.innerWidth > 600) {
-      bannerRef!.current.scrollLeft -= 350;
+      bannerRef!.current.scrollLeft -= 360;
     } else {
       bannerRef!.current.scrollLeft -= 270;
     }
@@ -56,11 +56,14 @@ const LatestBanner = ({ offers }: Props) => {
           </React.Fragment>
         )}
 
-        <ul ref={bannerRef} className={`${styles["latest-banner"]}`}>
+        <ScrollContainer
+          innerRef={bannerRef}
+          className={`${styles["latest-banner"]}`}
+        >
           {offers.map((offer) => {
             return <LatestTile key={offer._id} offer={offer} />;
           })}
-        </ul>
+        </ScrollContainer>
       </div>
     </section>
   );

@@ -7,6 +7,7 @@ import {
   GiCalendar,
   GiPowerLightning,
 } from "react-icons/gi";
+import { AiFillCar } from "react-icons/ai";
 import styles from "./LatestTile.module.scss";
 
 interface Props {
@@ -19,7 +20,11 @@ const LatestTile = ({ offer }: Props) => {
         className={styles["latest-tile"]}
         style={{ backgroundImage: `url(${offer.images[0]})` }}
       >
-        <p className={styles["tile__title"]}>{offer.model}</p>
+        <p className={styles["tile__title"]}>{offer.model}</p>{" "}
+        <p className={styles["tile__text"]}>
+          <AiFillCar />
+          {offer.brand.toUpperCase()}
+        </p>
         <p className={styles["tile__text"]}>
           <GiRoad />
           {offer.mileage} KM

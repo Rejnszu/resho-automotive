@@ -65,7 +65,7 @@ const CarsPage = () => {
         </div>
       ) : (
         <OffersGrid offers={paginatedOffers} />
-      )}
+      )}{" "}
     </main>
   );
 };

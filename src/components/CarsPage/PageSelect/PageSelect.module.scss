@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    border-radius: 4px;
     background-color: var(--brown--light-1);
     cursor: pointer;
     &.active {

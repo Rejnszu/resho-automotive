@@ -2,12 +2,14 @@
   margin: auto;
   width: 800px;
   max-width: 100%;
-  padding: 1rem 0;
+  height: auto;
+  padding: 1rem;
   box-shadow: var(--image-shadow);
   background-color: var(--brown--light-1);
   border-radius: var(--border-radius);
+
   @media (max-width: 600px) {
-    padding: 0;
+    padding: 0px;
   }
 }
 .main-img {
@@ -18,6 +20,7 @@
   position: relative;
   height: clamp(150px, 45vw, 400px);
   margin: 0 2.5rem;
+  cursor: pointer;
 
   svg {
     cursor: pointer;
@@ -37,7 +40,7 @@
 }
 .thumbnail-img__wrapper {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 
   padding: 0 10px 5px 10px;
   padding-top: 1rem;
@@ -46,7 +49,7 @@
   &::-webkit-scrollbar {
     display: none;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     display: none;
   }
 }
@@ -60,5 +63,68 @@
   @media (max-width: 750px) {
     width: 100px;
     height: 75px;
+  }
+}
+
+.enlarged-image {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.637);
+
+  img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    height: auto;
+    border: 2px solid var(--brown--light);
+  }
+  svg {
+    position: fixed;
+    fill: white;
+
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--brown--light);
+    background-color: black;
+    padding: 5px;
+  }
+}
+.prev-image,
+.next-image {
+  top: 50% !important;
+  transform: translateY(-50%);
+  width: clamp(30px, 5vw, 60px) !important;
+  height: clamp(30px, 5vw, 60px) !important;
+  z-index: 101;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+  path {
+    pointer-events: none;
+  }
+}
+.prev-image {
+  left: 5px !important;
+  padding: 5px 5px 5px 0px !important;
+  @media (max-width: 900px) {
+    padding: 5px 2px 5px 0px !important;
+  }
+}
+.next-image {
+  padding: 5px 0px 5px 5px !important;
+  right: 5px !important;
+  @media (max-width: 900px) {
+    padding: 5px 0px 5px 2px !important;
   }
 }

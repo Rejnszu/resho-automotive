@@ -34,7 +34,7 @@ const InfoList = ({ currentOffer }: Props) => {
           <p>{currentOffer.fuel}</p>
         </li>
         <li>
-          <p>Year of production</p>
+          <p>Year of production:</p>
           <p>{currentOffer.year}</p>
         </li>
         <li>
