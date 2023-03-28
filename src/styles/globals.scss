@@ -40,6 +40,7 @@ a {
   max-width: 80%;
   margin: auto;
   height: 100%;
+
   @media (min-width: 2500px) {
     max-width: 60%;
   }
@@ -69,8 +70,8 @@ a {
 }
 
 .content-margin {
-  margin-top: 4.6rem;
+  margin-top: 8rem;
   @media (max-width: 800px) {
-    margin-top: 0;
+    margin-top: 4rem;
   }
 }

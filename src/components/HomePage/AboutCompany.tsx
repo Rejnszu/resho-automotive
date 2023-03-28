@@ -1,6 +1,6 @@
 import React from "react";
 import HeadingH2 from "../Typography/Headings/HeadingH2";
-import HeadingH3 from "../Typography/Headings/HeadingH3";
+
 import Image from "next/image";
 import Text from "../Typography/Text";
 import Button from "../UI/Button";

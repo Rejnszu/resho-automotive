@@ -95,13 +95,14 @@
 }
 .messenger__input {
   padding: 1rem 2rem 1rem 0.5rem;
-
+  border-bottom-right-radius: var(--border-radius);
   font-size: 16px;
   border: none;
   outline: none;
   flex-grow: 1;
   resize: none;
   position: relative;
+
   &::-webkit-scrollbar {
     display: none;
   }

@@ -75,8 +75,9 @@ const PageSelect = ({ offersAmount, currentPageNumber }: Props) => {
             <RxDoubleArrowLeft />
           </li>
         )}
-        {paginatedArray?.map((number) => (
+        {paginatedArray?.map((number, i) => (
           <li
+            className={i === 0 ? styles.active : ""}
             onClick={(e) => {
               router.push(`/buy-a-car/${number}`);
               Array.from(pageListRef.current.children).forEach((child) =>

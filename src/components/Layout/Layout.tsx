@@ -7,10 +7,10 @@ import Cookies from "../Cookies/Cookies";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
-interface props {
+interface Props {
   children: React.ReactNode;
 }
-const Layout = ({ children }: props) => {
+const Layout = ({ children }: Props) => {
   const showCookiesModal = useSelector(
     (state: RootState) => state.cookies.showCookiesModal
   );

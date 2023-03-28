@@ -2,10 +2,12 @@ import React from "react";
 import HeadingH2 from "../Typography/Headings/HeadingH2";
 import styles from "./Partnership.module.scss";
 import Image from "next/image";
+import Text from "../Typography/Text";
 const Partnership = () => {
   return (
     <section className={`section-padding ${styles["bank-section"]}`}>
       <HeadingH2>Partnership</HeadingH2>
+      <Text>We work with the best!</Text>
       <div className={`container ${styles.logos}`}>
         <Image
           src="/assets/Finances/commerz.png"

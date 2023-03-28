@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import Spinner from "@/components/UI/Spinner";
 import { useGetAllOffersQuery } from "@/redux/api/offersApiSlice";
 import { CarOffer } from "@/models/models";
+import Main from "@/components/MotionComponents/Main";
 const CarsPage = () => {
   const router = useRouter();
   const pageNumber = router.query.pageNumber;
@@ -38,10 +39,6 @@ const CarsPage = () => {
     router.push("/buy-a-car/1");
   }, [offersPerPage, filteredOffers]);
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
   if (isError) {
     return (
       <div className="center-loader">
@@ -50,7 +47,7 @@ const CarsPage = () => {
     );
   }
   return (
-    <main className="content-margin">
+    <Main style="content-margin">
       <Filters filterOffers={filterOffers} />
       <PageSelect
         offersAmount={filteredOffers?.length}
@@ -66,7 +63,7 @@ const CarsPage = () => {
       ) : (
         <OffersGrid offers={paginatedOffers} />
       )}{" "}
-    </main>
+    </Main>
   );
 };
 

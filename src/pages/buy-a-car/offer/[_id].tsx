@@ -17,6 +17,7 @@ const CarDetails = (props: Props) => {
   }
   return <OfferDetails currentOffer={currentOffer} />;
 };
+
 export async function getStaticProps(context) {
   const offerId = context.params._id;
 

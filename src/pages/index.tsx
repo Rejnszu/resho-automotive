@@ -3,6 +3,7 @@ import Hero from "@/components/HomePage/Hero";
 import Banner from "@/components/HomePage/Banner";
 import LatestBanner from "@/components/HomePage/LatestBanner";
 import AboutCompany from "@/components/HomePage/AboutCompany";
+import Main from "@/components/MotionComponents/Main";
 import { connectDatabase, getLatestOffers } from "@/utils/db-utils";
 import { CarOffer } from "@/models/models";
 
@@ -12,12 +13,12 @@ interface Props {
 
 const HomePage = ({ offers }: Props) => {
   return (
-    <main>
+    <Main>
       <Hero />
       <AboutCompany />
       <Banner />
       <LatestBanner offers={offers} />
-    </main>
+    </Main>
   );
 };
 export async function getStaticProps() {

@@ -1,7 +1,7 @@
 import { CarOffer } from "@/models/models";
 import React from "react";
 import styles from "./OfferDetails.module.scss";
-import Image from "next/image";
+import Main from "@/components/MotionComponents/Main";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import InfoList from "./InfoTable/InfoList";
 import ContactInformations from "./ContactInfo/ContactInformations";
@@ -10,7 +10,7 @@ interface Props {
 }
 const OfferDetails = ({ currentOffer }: Props) => {
   return (
-    <main className={`${styles["offer__details"]} container section-padding`}>
+    <Main style={`${styles["offer__details"]} container section-padding`}>
       <ContactInformations
         phone={currentOffer.phone}
         name={currentOffer.name}
@@ -18,7 +18,7 @@ const OfferDetails = ({ currentOffer }: Props) => {
       />
       <ImageGallery images={currentOffer.images} />
       <InfoList currentOffer={currentOffer} />
-    </main>
+    </Main>
   );
 };
 
