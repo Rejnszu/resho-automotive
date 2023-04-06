@@ -29,7 +29,7 @@ $left-nav-bar-width: 150px;
   }
 }
 .nav-bar-top {
-  position: fixed;
+  position: absolute;
   height: 80px;
   padding: 1rem;
   width: calc(100% - $left-nav-bar-width);

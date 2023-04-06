@@ -31,9 +31,9 @@ async function handler(req, res) {
       power,
       mileage,
       year,
-      engine,
       price,
       email,
+      enginecapacity,
     } = offer;
     if (
       title.trim().length === 0 ||
@@ -46,15 +46,22 @@ async function handler(req, res) {
       mileage === undefined ||
       year === 0 ||
       year === undefined ||
-      engine.trim().length === 0 ||
       price === 0 ||
-      price === undefined
+      price === undefined ||
+      enginecapacity === 0 ||
+      enginecapacity === undefined
     ) {
       res.status(422).json({ message: "One of fields is empty." });
       return;
     }
 
     try {
+      offer.power = +offer.power;
+      offer.mileage = +offer.mileage;
+      offer.year = +offer.year;
+      offer.price = +offer.price;
+      offer.enginecapacity = +offer.enginecapacity;
+      
       await insertOffer(client, "offers", offer);
       await insertOfferToUser(client, "users", email, offer);
       client.close();
@@ -79,13 +86,15 @@ async function handler(req, res) {
       return;
     }
   } else if (req.method === "GET" && req.query.type === "range") {
-    let offers;
-    let count;
-    let { min, max } = req.query;
+    let { min, max, ...filterObj } = req.query;
 
     try {
-      offers = await getOffersByRange(client, "offers", min, max);
-      count = await getOffersCount(client, "offers");
+      let { offers, count } = await getOffersByRange(client, "offers", {
+        min,
+        max,
+        ...filterObj,
+      });
+
       res
         .status(201)
         .json({ message: "Offers Loaded", offers: offers, count: count });
@@ -125,7 +134,6 @@ async function handler(req, res) {
       power,
       mileage,
       year,
-      engine,
       price,
       email,
       phone,
@@ -143,7 +151,6 @@ async function handler(req, res) {
       mileage === undefined ||
       year === 0 ||
       year === undefined ||
-      engine.trim().length === 0 ||
       price === 0 ||
       price === undefined
     ) {

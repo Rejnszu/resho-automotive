@@ -6,7 +6,6 @@ export interface CarOffer {
   brand: string;
   mileage: number;
   year: number;
-  engine: string;
   power: number;
   enginecapacity: number;
   fuel: string;
@@ -29,7 +28,6 @@ export interface User {
 export interface FilterObject {
   model: string;
   brand: string;
-  year: string;
   fuel: string;
   color: string;
   powerUpperLevel: number;
@@ -40,4 +38,6 @@ export interface FilterObject {
   enginecapacityLowerLevel: number;
   priceUpperLevel: number;
   priceLowerLevel: number;
+  yearUpperLevel: number;
+  yearLowerLevel: number;
 }

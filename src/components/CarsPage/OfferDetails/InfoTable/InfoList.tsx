@@ -17,10 +17,7 @@ const InfoList = ({ currentOffer }: Props) => {
           <p>Model:</p>
           <p>{currentOffer.model}</p>
         </li>
-        <li>
-          <p>Engine:</p>
-          <p>{currentOffer.engine}</p>
-        </li>
+
         <li>
           <p>Power:</p>
           <p>{currentOffer.power} KM</p>

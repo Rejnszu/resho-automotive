@@ -1,3 +1,4 @@
+import { CarOffer } from "@/models/models";
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
 
@@ -23,15 +24,116 @@ export async function getAllOffers(client, collection) {
   const offers = await db.collection(collection).find().toArray();
   return offers;
 }
-export async function getOffersByRange(client, collection, min, max) {
+export async function getOffersByRange(client, collection, obj) {
   const db = client.db();
-  const offers = await db
+
+  const offers: CarOffer[] = await db
     .collection(collection)
-    .find()
-    .skip(+min)
-    .limit(+max)
+    .find({
+      $and: [
+        { brand: obj.brand || { $ne: "" } },
+        { model: obj.model || { $ne: "" } },
+        { fuel: obj.fuel || { $ne: "" } },
+        { color: obj.color || { $ne: "" } },
+        {
+          year: {
+            $gte: +obj.yearLowerLevel || 0,
+            $lte:
+              +obj.yearUpperLevel === 0
+                ? new Date().getFullYear() + 50
+                : +obj.yearUpperLevel,
+          },
+        },
+        {
+          mileage: {
+            $gte: +obj.mileageLowerLevel === 0 ? 0 : +obj.mileageLowerLevel,
+            $lte:
+              +obj.mileageUpperLevel === 0 ? 10000000 : +obj.mileageUpperLevel,
+          },
+        },
+        {
+          price: {
+            $gte: +obj.priceLowerLevel === 0 ? 0 : +obj.priceLowerLevel,
+            $lte: +obj.priceUpperLevel === 0 ? 10000000 : +obj.priceUpperLevel,
+          },
+        },
+        {
+          enginecapacity: {
+            $gte:
+              +obj.enginecapacityLowerLevel === 0
+                ? 0
+                : +obj.enginecapacityLowerLevel,
+            $lte:
+              +obj.enginecapacityUpperLevel === 0
+                ? 20000
+                : +obj.enginecapacityUpperLevel,
+          },
+        },
+        {
+          power: {
+            $gte: +obj.powerLowerLevel === 0 ? 0 : +obj.powerLowerLevel,
+            $lte: +obj.powerUpperLevel === 0 ? 20000 : +obj.powerUpperLevel,
+          },
+        },
+      ],
+    })
+    .skip(+obj.min)
+    .limit(+obj.max)
     .toArray();
-  return offers;
+
+  const count = await db
+    .collection(collection)
+    .find({
+      $and: [
+        { brand: obj.brand || { $ne: "" } },
+        { model: obj.model || { $ne: "" } },
+        { fuel: obj.fuel || { $ne: "" } },
+        { color: obj.color || { $ne: "" } },
+        {
+          year: {
+            $gte: +obj.yearLowerLevel || 0,
+            $lte:
+              +obj.yearUpperLevel === 0
+                ? new Date().getFullYear() + 50
+                : +obj.yearUpperLevel,
+          },
+        },
+        {
+          mileage: {
+            $gte: +obj.mileageLowerLevel === 0 ? 0 : +obj.mileageLowerLevel,
+            $lte:
+              +obj.mileageUpperLevel === 0 ? 10000000 : +obj.mileageUpperLevel,
+          },
+        },
+        {
+          price: {
+            $gte: +obj.priceLowerLevel === 0 ? 0 : +obj.priceLowerLevel,
+            $lte: +obj.priceUpperLevel === 0 ? 10000000 : +obj.priceUpperLevel,
+          },
+        },
+        {
+          enginecapacity: {
+            $gte:
+              +obj.enginecapacityLowerLevel === 0
+                ? 0
+                : +obj.enginecapacityLowerLevel,
+            $lte:
+              +obj.enginecapacityUpperLevel === 0
+                ? 20000
+                : +obj.enginecapacityUpperLevel,
+          },
+        },
+        {
+          power: {
+            $gte: +obj.powerLowerLevel === 0 ? 0 : +obj.powerLowerLevel,
+            $lte: +obj.powerUpperLevel === 0 ? 20000 : +obj.powerUpperLevel,
+          },
+        },
+      ],
+    })
+    .count();
+
+  return { offers: offers, count: count };
 }
 export async function getLatestOffers(client, collection, limit) {
   const db = client.db();

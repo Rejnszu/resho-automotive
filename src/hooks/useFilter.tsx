@@ -30,7 +30,8 @@ const useFilter = (offers: CarOffer[]) => {
         key === "powerUpperLevel" ||
         key === "mileageUpperLevel" ||
         key === "enginecapacityUpperLevel" ||
-        key == "priceUpperLevel"
+        key === "priceUpperLevel" ||
+        key === "yearUpperLevel"
       ) {
         result = filterByHigherRangeParameter(
           key.replace(/([a-z0-9])([A-Z])/g, "$1 $2").split(" ")[0],
@@ -41,7 +42,8 @@ const useFilter = (offers: CarOffer[]) => {
         key === "powerLowerLevel" ||
         key === "mileageLowerLevel" ||
         key === "enginecapacityLowerLevel" ||
-        key == "priceLowerLevel"
+        key === "priceLowerLevel" ||
+        key === "yearLowerLevel"
       ) {
         result = filterByLowerRangeParameter(
           key.replace(/([a-z0-9])([A-Z])/g, "$1 $2").split(" ")[0],
@@ -61,6 +63,6 @@ const useFilter = (offers: CarOffer[]) => {
       dispatch(offersActions.resetFilter());
     };
   }, [router.pathname]);
-  return { filterOffers, filteredOffers };
+  return { filterOffers, filteredOffers, filterObject };
 };
 export default useFilter;

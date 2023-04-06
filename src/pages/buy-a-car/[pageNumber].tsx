@@ -1,43 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import OffersGrid from "@/components/CarsPage/OffersGrid";
 
 import Warning from "@/components/Typography/Warning";
 import Filters from "@/components/CarsPage/Filters/Filters";
-import useFilter from "@/hooks/useFilter";
+
 import PageSelect from "@/components/CarsPage/PageSelect/PageSelect";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/router";
 import Spinner from "@/components/UI/Spinner";
 import { useGetAllOffersQuery } from "@/redux/api/offersApiSlice";
+import { useGetOffersByRangeQuery } from "@/redux/api/offersApiSlice";
 import { CarOffer } from "@/models/models";
 import Main from "@/components/MotionComponents/Main";
+import { useDispatch } from "react-redux";
+import { offersActions } from "@/redux/offersPageSlice";
 const CarsPage = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const [skipToken, setSkipToken] = useState(true);
   const pageNumber = router.query.pageNumber;
   const offersPerPage = useSelector(
     (state: RootState) => state.offers.offersPerPage
   );
+  const filterObject = useSelector(
+    (state: RootState) => state.offers.filterObject
+  );
+  const filterOffers = (filter: string, value: string | number): void => {
+    dispatch(
+      offersActions.setFilterObject({ ...filterObject, [filter]: value })
+    );
+  };
 
   const { data, isLoading, isFetching, isError, refetch } =
-    useGetAllOffersQuery({
-      type: "all",
-    });
-  const offers: CarOffer[] = data?.offers;
+    useGetOffersByRangeQuery(
+      {
+        min: +pageNumber * offersPerPage - offersPerPage,
+        max: offersPerPage,
+        type: "range",
+        ...filterObject,
+      },
+      { skip: skipToken }
+    );
+  const filterData: CarOffer[] = data?.offers || [];
 
-  const { filterOffers, filteredOffers } = useFilter(offers);
-
-  const paginatedOffers = filteredOffers?.slice(
-    +pageNumber * offersPerPage - offersPerPage,
-    +pageNumber * offersPerPage
-  );
-
-  const loadingCondtion = isLoading || isFetching || !filteredOffers;
+  const loadingCondtion = isLoading || isFetching;
 
   useEffect(() => {
     router.push("/buy-a-car/1");
-  }, [offersPerPage, filteredOffers]);
+  }, [offersPerPage, filterObject]);
 
   if (isError) {
     return (
@@ -48,12 +60,15 @@ const CarsPage = () => {
   }
   return (
     <Main style="content-margin">
-      <Filters filterOffers={filterOffers} />
-      <PageSelect
-        offersAmount={filteredOffers?.length}
-        currentPageNumber={+pageNumber}
+      <Filters
+        filterOffers={filterOffers}
+        startFetching={() => setSkipToken(false)}
       />
-      {filteredOffers?.length === 0 && !loadingCondtion && (
+      <PageSelect offersAmount={data?.count} currentPageNumber={+pageNumber} />
+      {filterData?.length === 0 && !loadingCondtion && skipToken === true && (
+        <Warning>Please select some filters.</Warning>
+      )}
+      {filterData?.length === 0 && !loadingCondtion && skipToken !== true && (
         <Warning>No offers found.</Warning>
       )}
       {loadingCondtion ? (
@@ -61,7 +76,7 @@ const CarsPage = () => {
           <Spinner />
         </div>
       ) : (
-        <OffersGrid offers={paginatedOffers} />
+        <OffersGrid offers={filterData} />
       )}{" "}
     </Main>
   );

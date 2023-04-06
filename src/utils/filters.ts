@@ -19,3 +19,10 @@ export const filterByHigherRangeParameter = (filter, value, array) => {
     return array.filter((offer) => offer[filter] <= value);
   }
 };
+
+export const replaceFilterValue = (
+  filter: number | string,
+  replace: string | number
+): void => {
+  filter = +filter === 0 ? replace : filter;
+};

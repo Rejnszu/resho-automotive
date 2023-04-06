@@ -169,17 +169,6 @@ const EditOfferForm = ({ offer }: Props) => {
         </select>
       </div>
       <div className={styles["input__wrapper"]}>
-        <label htmlFor="engine">Engine</label>
-        <input
-          required
-          onChange={onChange}
-          value={carOffer.engine}
-          type="text"
-          id="engine"
-          name="engine"
-        />
-      </div>
-      <div className={styles["input__wrapper"]}>
         <label htmlFor="power">Power [KM]</label>
         <input
           required
@@ -219,14 +208,32 @@ const EditOfferForm = ({ offer }: Props) => {
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="color">Color</label>
-        <input
+        <select
           required
           onChange={onChange}
           value={carOffer.color}
-          type="text"
           id="color"
           name="color"
-        />
+        >
+          <option>Color</option>
+          <option value="beigne">beigne</option>
+          <option value="black">black</option>
+          <option value="blue">blue</option>
+          <option value="brown">brown</option>
+          <option value="claret">claret</option>
+          <option value="dark blue">dark blue</option>
+          <option value="gold">gold</option>
+          <option value="green">green</option>
+          <option value="grey">grey</option>
+          <option value="orange">orange</option>
+          <option value="purple">purple</option>
+          <option value="red">red</option>
+          <option value="silver">silver</option>
+          <option value="sky blue">sky blue</option>
+          <option value="white">white</option>
+          <option value="yellow">yellow</option>{" "}
+          <option value="other">other</option>
+        </select>
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="price">Price [€]</label>

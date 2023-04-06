@@ -17,9 +17,28 @@ export const offersApiSlice = createApi({
     }),
     getOffersByRange: builder.query<
       any,
-      { min: number; max: number; type: string }
+      {
+        min: number;
+        max: number;
+        type: string;
+        model: string;
+        brand: string;
+        fuel: string;
+        color: string;
+        powerUpperLevel: number;
+        powerLowerLevel: number;
+        mileageUpperLevel: number;
+        mileageLowerLevel: number;
+        enginecapacityUpperLevel: number;
+        enginecapacityLowerLevel: number;
+        priceUpperLevel: number;
+        priceLowerLevel: number;
+        yearUpperLevel: number;
+        yearLowerLevel: number;
+      }
     >({
-      query: (obj) => `?min=${obj.min}&max=${obj.max}&type=${obj.type}`,
+      query: (obj) =>
+        `?min=${obj.min}&max=${obj.max}&type=${obj.type}&model=${obj.model}&brand=${obj.brand}&fuel=${obj.fuel}&color=${obj.color}&powerUpperLevel=${obj.powerUpperLevel}&powerLowerLevel=${obj.powerLowerLevel}&mileageUpperLevel=${obj.mileageUpperLevel}&mileageLowerLevel=${obj.mileageLowerLevel}&enginecapacityUpperLevel=${obj.enginecapacityUpperLevel}&enginecapacityLowerLevel=${obj.enginecapacityLowerLevel}&priceUpperLevel=${obj.priceUpperLevel}&priceLowerLevel=${obj.priceLowerLevel}&yearUpperLevel=${obj.yearUpperLevel}&yearLowerLevel=${obj.yearLowerLevel}`,
       providesTags: ["Offers"],
     }),
     addOffer: builder.mutation({
