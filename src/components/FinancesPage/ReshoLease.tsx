@@ -10,7 +10,7 @@ const ReshoLease = () => {
     <section className={`${styles["lease-section"]} container section-padding`}>
       <HeadingH2>
         Check our latest financing option,{" "}
-        <span className={styles.resholease}>
+        <span>
           <span>Resho</span>
           <span>Lease</span>
         </span>{" "}

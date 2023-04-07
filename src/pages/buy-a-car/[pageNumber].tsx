@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/router";
 import Spinner from "@/components/UI/Spinner";
-import { useGetAllOffersQuery } from "@/redux/api/offersApiSlice";
 import { useGetOffersByRangeQuery } from "@/redux/api/offersApiSlice";
 import { CarOffer } from "@/models/models";
 import Main from "@/components/MotionComponents/Main";
@@ -19,7 +18,7 @@ import { offersActions } from "@/redux/offersPageSlice";
 const CarsPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [skipToken, setSkipToken] = useState(true);
+  const skipToken = useSelector((state: RootState) => state.offers.skipToken);
   const pageNumber = router.query.pageNumber;
   const offersPerPage = useSelector(
     (state: RootState) => state.offers.offersPerPage
@@ -62,7 +61,7 @@ const CarsPage = () => {
     <Main style="content-margin">
       <Filters
         filterOffers={filterOffers}
-        startFetching={() => setSkipToken(false)}
+        startFetching={() => dispatch(offersActions.setSkiptoken(false))}
       />
       <PageSelect offersAmount={data?.count} currentPageNumber={+pageNumber} />
       {filterData?.length === 0 && !loadingCondtion && skipToken === true && (

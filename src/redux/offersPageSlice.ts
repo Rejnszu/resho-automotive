@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface InitialState {
   offersPerPage: number;
+  skipToken: boolean;
   filterObject: FilterObject;
 }
 
 const initialOffersState: InitialState = {
   offersPerPage: 8,
+  skipToken: true,
   filterObject: {
     model: "",
     brand: "",
@@ -37,6 +39,9 @@ const offersSlice = createSlice({
     },
     resetFilter(state) {
       state.filterObject = initialOffersState.filterObject;
+    },
+    setSkiptoken(state, action: PayloadAction<boolean>) {
+      state.skipToken = action.payload;
     },
   },
 });

@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./Filters.module.scss";
 import { carBrands, yearArray } from "@/dummyData/DummyData";
-
+import { useSelector, useDispatch } from "react-redux";
 import HeadingH2 from "@/components/Typography/Headings/HeadingH2";
+import { RootState } from "@/redux/store";
+import Button from "@/components/UI/Button";
+import { offersActions } from "@/redux/offersPageSlice";
 
 interface Props {
   filterOffers: (filter: string, value: string | number) => void;
@@ -10,6 +13,15 @@ interface Props {
 }
 
 const Filters = ({ filterOffers, startFetching }: Props) => {
+  const filterObject = useSelector(
+    (state: RootState) => state.offers.filterObject
+  );
+  const dispatch = useDispatch();
+  const resetFilters = () => {
+    dispatch(offersActions.resetFilter());
+    dispatch(offersActions.setSkiptoken(true));
+  };
+
   return (
     <>
       <HeadingH2>What you are looking for?</HeadingH2>
@@ -18,15 +30,16 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
           <label>Car brand</label>
           <select
             name="brand"
+            value={filterObject.brand}
             onChange={(e) => {
-              filterOffers(e.target.name, e.target.value.toLowerCase());
+              filterOffers(e.target.name, e.target.value);
               startFetching();
             }}
           >
             <option value="">Default</option>
             {carBrands.map((brand) => {
               return (
-                <option key={brand.id} value={brand.name}>
+                <option key={brand.id} value={brand.name.toLocaleLowerCase()}>
                   {brand.name}
                 </option>
               );
@@ -36,11 +49,11 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
         <div className={styles["filter-wrapper"]}>
           <label htmlFor="model">Model</label>
           <input
-            required
             onChange={(e) => {
               filterOffers(e.target.name, e.target.value.toLowerCase());
               startFetching();
             }}
+            value={filterObject.model}
             type="text"
             id="model"
             name="model"
@@ -51,7 +64,7 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
             <label htmlFor="mileageLowerLevel">From:</label>
 
             <select
-              required
+              value={filterObject.yearLowerLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -69,13 +82,13 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
                 );
               })}
             </select>
-          </div>{" "}
+          </div>
           <p>Year of production:</p>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="yearUpperLevel">To:</label>
 
             <select
-              required
+              value={filterObject.yearUpperLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -99,7 +112,7 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
           <label htmlFor="fuel">Fuel</label>
 
           <select
-            required
+            value={filterObject.fuel}
             onChange={(e) => {
               filterOffers(e.target.name, e.target.value);
               startFetching();
@@ -113,13 +126,13 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
             <option value="electric">electric</option>
             <option value="hybrid">hybrid</option>
           </select>
-        </div>{" "}
+        </div>
         <div className={styles["filter-outer-wrapper"]}>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="mileageLowerLevel">From:</label>
 
             <select
-              required
+              value={filterObject.mileageLowerLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -137,13 +150,13 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={250000}>250.000</option>
               <option value={500000}>500.000</option>
             </select>
-          </div>{" "}
+          </div>
           <p>Mileage [km]:</p>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="mileageUpperLevel">To:</label>
 
             <select
-              required
+              value={filterObject.mileageUpperLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -158,7 +171,7 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={75000}>75.000</option>
               <option value={100000}>100.000</option>
               <option value={150000}>150.000</option>
-              <option value={250000}>250.000</option>{" "}
+              <option value={250000}>250.000</option>
               <option value={500000}>500.000</option>
             </select>
           </div>
@@ -168,7 +181,7 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
             <label htmlFor="priceLowerLevel">From:</label>
 
             <select
-              required
+              value={filterObject.priceLowerLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -185,12 +198,12 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={150000}>150.000</option>
             </select>
           </div>
-          <p>Price [€]:</p>{" "}
+          <p>Price [€]:</p>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="priceUpperLevel">To:</label>
 
             <select
-              required
+              value={filterObject.priceUpperLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -207,13 +220,13 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={150000}>150.000</option>
             </select>
           </div>
-        </div>{" "}
+        </div>
         <div className={styles["filter-outer-wrapper"]}>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="powerLowerLevel">From:</label>
 
             <select
-              required
+              value={filterObject.powerLowerLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -231,12 +244,12 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={500}>500</option>
             </select>
           </div>
-          <p>Power [KM]:</p>{" "}
+          <p>Power [KM]:</p>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="powerUpperLevel">To:</label>
 
             <select
-              required
+              value={filterObject.powerUpperLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -254,13 +267,13 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={500}>500</option>
             </select>
           </div>
-        </div>{" "}
+        </div>
         <div className={styles["filter-outer-wrapper"]}>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="enginecapacityLowerLevel">From:</label>
 
             <select
-              required
+              value={filterObject.enginecapacityLowerLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -285,12 +298,12 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={4000}>4000</option>
             </select>
           </div>
-          <p>Engine capacity [cm³]:</p>{" "}
+          <p>Engine capacity [cm³]:</p>
           <div className={styles["filter-wrapper"]}>
             <label htmlFor="enginecapacityUpperLevel">To:</label>
 
             <select
-              required
+              value={filterObject.enginecapacityUpperLevel}
               onChange={(e) => {
                 filterOffers(e.target.name, +e.target.value);
                 startFetching();
@@ -315,10 +328,11 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
               <option value={4000}>4000</option>
             </select>
           </div>
-        </div>{" "}
+        </div>
         <div className={styles["filter-wrapper"]}>
           <label>Color</label>
           <select
+            value={filterObject.color}
             name="color"
             onChange={(e) => {
               filterOffers(e.target.name, e.target.value.toLowerCase());
@@ -341,10 +355,13 @@ const Filters = ({ filterOffers, startFetching }: Props) => {
             <option value="silver">silver</option>
             <option value="sky blue">sky blue</option>
             <option value="white">white</option>
-            <option value="yellow">yellow</option>{" "}
+            <option value="yellow">yellow</option>
             <option value="other">other</option>
           </select>
         </div>
+        <Button style={styles["reset-button"]} onClick={resetFilters}>
+          Reset Filters
+        </Button>
       </section>
     </>
   );
