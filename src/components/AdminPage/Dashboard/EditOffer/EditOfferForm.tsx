@@ -28,7 +28,13 @@ const EditOfferForm = ({ offer }: Props) => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ): void => {
-    setCarOffer({ ...carOffer, [e.target.name]: e.target.value.toLowerCase() });
+    setCarOffer({
+      ...carOffer,
+      [e.target.name]:
+        e.target.name !== "description" && e.target.name !== "title"
+          ? e.target.value.toLowerCase()
+          : e.target.value,
+    });
   };
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let helperArray = [];

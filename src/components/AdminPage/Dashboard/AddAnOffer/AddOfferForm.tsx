@@ -44,7 +44,13 @@ const AddOfferForm = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ): void => {
-    setCarOffer({ ...carOffer, [e.target.name]: e.target.value.toLowerCase() });
+    setCarOffer({
+      ...carOffer,
+      [e.target.name]:
+        e.target.name !== "description" && e.target.name !== "title"
+          ? e.target.value.toLowerCase()
+          : e.target.value,
+    });
   };
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let helperArray = [];
@@ -127,13 +133,7 @@ const AddOfferForm = () => {
       </div>
       <div className={styles["input__wrapper"]}>
         <label htmlFor="brand">Brand</label>
-        <select
-          required
-          onChange={onChange}
-          // value={carOffer.brand}
-          id="brand"
-          name="brand"
-        >
+        <select required onChange={onChange} id="brand" name="brand">
           <option key="default" value="">
             default
           </option>
