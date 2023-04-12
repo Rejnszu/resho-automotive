@@ -23,3 +23,11 @@
     margin-bottom: 1rem;
   }
 }
+.number {
+  cursor: pointer;
+  &--inactive {
+    background-color: var(--brown--light);
+    border-radius: var(--border-radius);
+    padding: 1px 4px;
+  }
+}

@@ -10,10 +10,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { carBrands, yearArray } from "@/dummyData/DummyData";
 
-const token = "62d014a3-b8b7-4980-922b-3059baab2c50";
-const secret = "a7ff469548546a975053a2701bf36258";
-const jwt =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXJhcGkuYXBwIiwic3ViIjoiZGNhYzgzZWUtMmZkMy00ODU3LWIzYjAtZjQ3NGU2M2ZmZGY5IiwiYXVkIjoiZGNhYzgzZWUtMmZkMy00ODU3LWIzYjAtZjQ3NGU2M2ZmZGY5IiwiZXhwIjoxNjc4OTU3ODY1LCJpYXQiOjE2NzgzNTMwNjUsImp0aSI6ImZhOGM5MTBlLTBhY2ItNGIzMi05NjJlLWNhNTBhZmE1M2MxMyIsInVzZXIiOnsic3Vic2NyaWJlZCI6ZmFsc2V9fQ.xGYtSoC1c2NiJQM-XgjqXKhvF_Ybz_mabPlAdW_XugA";
 const AddOfferForm = () => {
   const { email, phone, name } = useSelector(
     (state: RootState) => state.user.user
@@ -54,21 +50,23 @@ const AddOfferForm = () => {
   };
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let helperArray = [];
+
     Array.from(e.target.files).map((file: any) => {
       if (file.size > 300000) {
         alert(`${file.name} is to big to upload.`);
         return;
       }
-      const reader = new FileReader();
-      reader.onload = function () {
-        helperArray.push(reader.result);
+      const url = URL.createObjectURL(e.target.files[0]);
+      // const reader = new FileReader();
+      // reader.onload = function () {
+      helperArray.push(url);
 
-        setCarOffer({
-          ...carOffer,
-          images: [...carOffer.images, ...helperArray],
-        });
-      };
-      reader.readAsDataURL(file);
+      setCarOffer({
+        ...carOffer,
+        images: [...carOffer.images, ...helperArray],
+      });
+      // };
+      // reader.readAsDataURL(file);
     });
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ContactInformations.module.scss";
 import Text from "@/components/Typography/Text";
 import { AiOutlinePhone, AiOutlineMail } from "react-icons/ai";
@@ -9,6 +9,7 @@ interface Props {
   email: string;
 }
 const ContactInformations = ({ phone, name, email }: Props) => {
+  const [showNumber, setShowNumber] = useState(false);
   return (
     <section className={styles["contact-informations"]}>
       <Text>Posted By:</Text>
@@ -29,7 +30,21 @@ const ContactInformations = ({ phone, name, email }: Props) => {
           <p>
             <AiOutlinePhone />
           </p>
-          <p>{phone}</p>
+          {showNumber ? (
+            <p
+              className={styles.number}
+              onClick={() => setShowNumber((prevState) => !prevState)}
+            >
+              {phone}
+            </p>
+          ) : (
+            <p
+              className={`${styles.number} ${styles["number--inactive"]}`}
+              onClick={() => setShowNumber((prevState) => !prevState)}
+            >
+              Show number
+            </p>
+          )}
         </li>
       </ul>
     </section>
