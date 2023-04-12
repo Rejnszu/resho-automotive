@@ -56,17 +56,16 @@ const AddOfferForm = () => {
         alert(`${file.name} is to big to upload.`);
         return;
       }
-      const url = URL.createObjectURL(e.target.files[0]);
-      // const reader = new FileReader();
-      // reader.onload = function () {
-      helperArray.push(url);
+      const reader = new FileReader();
+      reader.onload = function () {
+        helperArray.push(reader.result);
 
-      setCarOffer({
-        ...carOffer,
-        images: [...carOffer.images, ...helperArray],
-      });
-      // };
-      // reader.readAsDataURL(file);
+        setCarOffer({
+          ...carOffer,
+          images: [...carOffer.images, ...helperArray],
+        });
+      };
+      reader.readAsDataURL(file);
     });
   };
 
