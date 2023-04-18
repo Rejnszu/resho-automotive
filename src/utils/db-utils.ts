@@ -193,6 +193,26 @@ export async function deleteUserOffer(client, collection, userEmail, id) {
       { $pull: { offers: { _id: new ObjectId(id) } } }
     );
 }
+export async function updateMessages(client, collection, userEmail, message) {
+  const db = client.db();
+  await db
+    .collection(collection)
+    .updateOne({ email: userEmail }, { $push: { messages: message } });
+}
+export async function getUserMessages(client, collection, userEmail, limit) {
+  const db = client.db();
+  const messages = await db
+    .collection(collection)
+    .findOne({ email: userEmail });
+
+  return messages.messages.slice(-limit);
+}
+export async function deleteMessage(client, collection, userEmail, id) {
+  const db = client.db();
+  const documents = await db
+    .collection(collection)
+    .updateOne({ email: userEmail }, { $pull: { messages: { id: id } } });
+}
 
 // User Settings
 export async function deleteUser(client, collection, email) {

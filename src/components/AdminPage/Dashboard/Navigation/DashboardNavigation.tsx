@@ -3,10 +3,13 @@ import styles from "./DashboardNavigation.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Button from "@/components/UI/Button";
+import { useDispatch } from "react-redux";
 import { BsBoxArrowRight } from "react-icons/bs";
 import { AiOutlineHome } from "react-icons/ai";
+import { userActions } from "@/redux/user-slice";
 const DashboardNavigation = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   return (
     <>
       <div className={styles["nav-bar-left"]}>
@@ -34,6 +37,7 @@ const DashboardNavigation = () => {
           onClick={() => {
             localStorage.removeItem("isLogged");
             localStorage.removeItem("userId");
+            dispatch(userActions.logOutUser());
             router.replace("/admin");
           }}
         >

@@ -21,6 +21,9 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
     },
+    logOutUser(state) {
+      state.user = initialUserState.user;
+    },
   },
 });
 export const userActions = userSlice.actions;

@@ -4,10 +4,21 @@
   padding: 5px 8px;
   font-weight: bold;
   position: relative;
+  &:hover {
+    .message__settings {
+      display: inline;
+    }
+  }
 }
 .message__date {
   position: absolute;
   top: -18px;
   right: 0;
   font-size: 0.9rem;
+}
+.message__settings {
+  position: absolute;
+  display: none;
+  left: -15px;
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import {
   connectDatabase,
   insertOffer,
@@ -9,7 +9,6 @@ import {
   updateOffer,
   updateUserOffer,
   getOffersByRange,
-  getOffersCount,
   getAllOffers,
 } from "@/utils/db-utils";
 
@@ -61,7 +60,7 @@ async function handler(req, res) {
       offer.year = +offer.year;
       offer.price = +offer.price;
       offer.enginecapacity = +offer.enginecapacity;
-      
+
       await insertOffer(client, "offers", offer);
       await insertOfferToUser(client, "users", email, offer);
       client.close();
