@@ -155,6 +155,15 @@ export async function deleteOffer(client, collection, id) {
   await db.collection(collection).deleteOne({ _id: new ObjectId(id) });
 }
 
+export async function getAllUsersEmails(client, collection) {
+  const db = client.db();
+  const usersEmails = await db
+    .collection(collection)
+    .find({}, { projection: { email: 1, _id: 0 } })
+    .toArray();
+  return usersEmails;
+}
+
 // User specific DB utils
 export async function insertOfferToUser(client, collection, userEmail, offer) {
   const db = client.db();

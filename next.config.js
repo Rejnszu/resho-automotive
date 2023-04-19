@@ -17,6 +17,7 @@ module.exports = (phase) => {
         mongodb_password: "AC1IInmb8F18jLTq",
         mongodb_clustername: "cluster0",
         mongodb_database: "shop-dev",
+        sample_admin_email: "admin@gmail.com",
       },
     };
   }
@@ -28,6 +29,7 @@ module.exports = (phase) => {
       mongodb_password: "AC1IInmb8F18jLTq",
       mongodb_clustername: "cluster0",
       mongodb_database: "shop-dev",
+      sample_admin_email: "admin@gmail.com",
     },
   };
 };

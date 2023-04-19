@@ -7,11 +7,14 @@ interface props {
   date: string;
   id: string;
   userEmail: string;
+  creator: string;
 }
-const Message = ({ msg, date, id, userEmail }: props) => {
+const Message = ({ msg, date, id, userEmail, creator }: props) => {
   const [deleteMessage, { isLoading }] = useDeleteMessageMutation();
   return (
-    <div className={styles.message}>
+    <div
+      className={`${styles.message} ${creator === "admin" ? styles.admin : ""}`}
+    >
       {isLoading ? "Deleting..." : msg}
       <span className={styles["message__date"]}>{date}</span>
       <span className={styles["message__settings"]}>

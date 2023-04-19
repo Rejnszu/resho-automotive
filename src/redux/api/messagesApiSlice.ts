@@ -15,7 +15,12 @@ export const messagesApiSlice = createApi({
       invalidatesTags: ["messages"],
     }),
     getUserMessages: builder.query({
-      query: (obj) => `?userEmail=${obj.userEmail}&limit=${obj.limit}`,
+      query: (obj) =>
+        `?userEmail=${obj.userEmail}&limit=${obj.limit}&type=${obj.type}`,
+      providesTags: ["messages"],
+    }),
+    getUserEmails: builder.query({
+      query: (obj) => `?type=${obj.type}`,
       providesTags: ["messages"],
     }),
     deleteMessage: builder.mutation({
@@ -33,4 +38,5 @@ export const {
   useUpdateUserMessagesMutation,
   useGetUserMessagesQuery,
   useDeleteMessageMutation,
+  useGetUserEmailsQuery,
 } = messagesApiSlice;

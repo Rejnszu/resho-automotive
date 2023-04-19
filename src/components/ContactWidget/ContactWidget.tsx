@@ -13,21 +13,30 @@ import Image from "next/image";
 import Message from "./Message";
 import Emojis from "./Emojis";
 import {
+  useGetUserEmailsQuery,
   useGetUserMessagesQuery,
   useUpdateUserMessagesMutation,
 } from "@/redux/api/messagesApiSlice";
 import Spinner from "../UI/Spinner";
 const ContactWidget = () => {
   const userEmail = useSelector((state: RootState) => state.user?.user?.email);
+  const isAdmin = userEmail === process.env.sample_admin_email;
+  const [chatWith, setChatWith] = useState(process.env.sample_admin_email);
   const messengerDisplayRef = useRef<HTMLDivElement>(null);
   const [limit, setLimit] = useState(20);
   const { data, isLoading } = useGetUserMessagesQuery(
     {
-      userEmail: userEmail,
+      userEmail: isAdmin ? chatWith : userEmail,
       limit: limit,
+      type: "messages",
     },
-    { skip: !userEmail }
+    { skip: !userEmail, pollingInterval: 2000 }
   );
+  const { data: emails } = useGetUserEmailsQuery(
+    { type: "usersEmails" },
+    { skip: !isAdmin }
+  );
+
   const [updateMessages] = useUpdateUserMessagesMutation();
   const [showWidget, setShowWidget] = useState(false);
   const [openWidget, setOpenWidget] = useState(false);
@@ -45,8 +54,13 @@ const ContactWidget = () => {
   function sendMessage() {
     const unique_id = uuid();
     updateMessages({
-      userEmail: userEmail,
-      message: { id: unique_id, message: message, date: getTime(new Date()) },
+      userEmail: isAdmin ? chatWith : userEmail,
+      message: {
+        id: unique_id,
+        message: message,
+        date: getTime(new Date()),
+        creator: isAdmin ? "admin" : "user",
+      },
     });
     setMessage("");
     messengerDisplayRef!.current!.scrollTop =
@@ -90,7 +104,25 @@ const ContactWidget = () => {
               width={40}
               height={40}
             />
-            Resho Consultant
+            {isAdmin ? (
+              <select
+                onChange={(e) => {
+                  setChatWith(e.target.value);
+                }}
+                required
+                id="brand"
+                name="brand"
+              >
+                <option key="default" value="">
+                  default
+                </option>
+                {emails.userEmails.map((email) => {
+                  return <option key={email.email}>{email.email}</option>;
+                })}
+              </select>
+            ) : (
+              <span>Resho Consultant</span>
+            )}
             <AiOutlineClose onClick={toggleWidget} />
           </p>{" "}
           <div
@@ -108,6 +140,7 @@ const ContactWidget = () => {
                     date={message.date}
                     id={message.id}
                     userEmail={userEmail}
+                    creator={message.creator}
                   />
                 );
               })}
